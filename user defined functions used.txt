@@ -1,75 +1,75 @@
-main_menu():
+main_menu(): T
 to provide options for admin or user
 
-change_password():
+change_password(): R
 to change password for both (if needed)
 
 Admin :
 
-admin_access() - 
+admin_access() - K
 for username and password for admin
 
-admin_menu() - 
+admin_menu() - K
 for choise bet add, update, display, exit and
 call admin_choice()
 
-admin_choice() -
+admin_choice() -K
 for giving statements for add, update, display and also for the table
 
-admin_userdisplay() - 
+admin_userdisplay() - K
 for specific admins only to see users table
 
 
 User :
-user_access() -
+user_access() - R
 for name and password for users
 choise - login or signup
 
-user_signup() -
+user_signup() -R
 if account does not exist it creates one and adds to the user account table
 
-user_menu1() -
+user_menu1() -R
 gives options of search, mybookings, exit
 
-user_ search() -
+user_ search() -R
 source and destination asking
 searching it in table 
 displaying information,fare
 confirmation
 
-user_data() -
+user_data() - P
 if yes in above function,
 personal data
 flight no. of choise
 alloting id
 add the data in table and confirm booking
 
-user_price.calc()-
+user_price.calc()- P
 for calculating the price according to source and destination
 
-user_confirm()-
+user_confirm()- T
 confirmation of booking
 
-user_autogenerator()-
+user_autogenerator()- P
 alloting id automatically by using random module
 
-user_allotment() -
+user_allotment() - R
 using random module allote seat nos.
 
-user_invoice()-
+user_invoice()- P
 print invoice
 
-user_mybookings() -
+user_mybookings() - K
 calling the user_menu2() function given below
 if display: display statement
 if cancel: cancel statement
 if update : update statement and print new invoice
 
-user_menu2() -
+user_menu2() - K
 gives option for display ,cancel,update,exit
 
 
-system_exit() - 
+system_exit() - T
 for exiting the program any where (to be given where ever needed)
 
  
