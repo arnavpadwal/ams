@@ -32,4 +32,4 @@ insert into flights(FlightNo,Company) values('EA1034','Emirates'),
 ('SA1139','SpiceJet'),
 ('SA1141','SpiceJet'),
 ('SA1143','SpiceJet'),
-('SA1159','SpiceJet')
+('SA1159','SpiceJet');
