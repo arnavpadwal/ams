@@ -2,6 +2,7 @@ print("Welcome to the Airport Management System")
 
 #def main_menu():
 #    print("""==============Main Menu============
+
 #1. Enter Admin Interface
 #2. Enter User Interface
 #3. Exit""")
@@ -20,9 +21,11 @@ def admin_access():
     admin_access = {"Arnav Padwal" : "ArnavP", "Arnav Rade" : "ArnavR", "Keigan Cardoza" : "KeiganC"}
     username = input("Enter case sensitive admin username : ")
     password = input("Enter admin password : ")
-    if username in admin_access: if password
-
-# Arnav Rade updated
+     if admin_access[username]==password:
+        print("hurrah!!!")
+    else:
+        print("Username or password is incorrect!")
+admin_access()
 
 def price_calc():
     mumbai=40
