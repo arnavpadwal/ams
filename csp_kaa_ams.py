@@ -23,3 +23,9 @@ def admin_access():
     if username in admin_access: if password
 
 # Arnav Rade updated
+
+def price_calc():
+    mumbai=40
+    delhi=50
+    kolkata=60
+    chennai=70
