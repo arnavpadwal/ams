@@ -1,0 +1,75 @@
+main_menu():
+to provide options for admin or user
+
+change_password():
+to change password for both (if needed)
+
+Admin :
+
+admin_access() - 
+for username and password for admin
+
+admin_menu() - 
+for choise bet add, update, display, exit and
+call admin_choice()
+
+admin_choice() -
+for giving statements for add, update, display and also for the table
+
+admin_userdisplay() - 
+for specific admins only to see users table
+
+
+User :
+user_access() -
+for name and password for users
+choise - login or signup
+
+user_signup() -
+if account does not exist it creates one and adds to the user account table
+
+user_menu1() -
+gives options of search, mybookings, exit
+
+user_ search() -
+source and destination asking
+searching it in table 
+displaying information,fare
+confirmation
+
+user_data() -
+if yes in above function,
+personal data
+flight no. of choise
+alloting id
+add the data in table and confirm booking
+
+user_price.calc()-
+for calculating the price according to source and destination
+
+user_confirm()-
+confirmation of booking
+
+user_autogenerator()-
+alloting id automatically by using random module
+
+user_allotment() -
+using random module allote seat nos.
+
+user_invoice()-
+print invoice
+
+user_mybookings() -
+calling the user_menu2() function given below
+if display: display statement
+if cancel: cancel statement
+if update : update statement and print new invoice
+
+user_menu2() -
+gives option for display ,cancel,update,exit
+
+
+system_exit() - 
+for exiting the program any where (to be given where ever needed)
+
+ 
