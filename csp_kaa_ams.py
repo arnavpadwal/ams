@@ -21,7 +21,7 @@ def admin_access():
     admin_access = {"Arnav Padwal" : "ArnavP", "Arnav Rade" : "ArnavR", "Keigan Cardoza" : "KeiganC"}
     username = input("Enter case sensitive admin username : ")
     password = input("Enter admin password : ")
-    if username in admin_access():
+    if username in admin_access:
         if admin_access[username]==password:
             print("success")
         else:
