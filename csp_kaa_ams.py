@@ -18,14 +18,18 @@ print("Welcome to the Airport Management System")
 
 
 def admin_access():
-    admin_access = {"Arnav Padwal" : "ArnavP", "Arnav Rade" : "ArnavR", "Keigan Cardoza" : "KeiganC"}
+    admin_auth = {"Arnav Padwal" : "ArnavP", "Arnav Rade" : "ArnavR", "Keigan Cardoza" : "KeiganC"}
     username = input("Enter case sensitive admin username : ")
-    password = input("Enter admin password : ")
-    if username in admin_access:
-        if admin_access[username] == password:
+    if username in admin_auth:
+        password = input("Enter admin password : ")
+        if admin_auth[username] == password:
             print("success")
         else:
-            print("Username or password is incorrect!")
+            print("Password is incorrect!")
+            admin_access()
+    else:
+        print("Username is incorrect!")
+        admin_access()
 admin_access()
 
 def price_calc():
