@@ -18,3 +18,9 @@ print("Welcome to the Airport Management System")
 
 #def admin_access():
 #    admin_access = {"Username_1" : "Arnav Padwal", "Username_2" : "Arnav Rade", " "}
+
+def price_calc():
+    mumbai=40
+    delhi=50
+    kolkata=60
+    chennai=70
