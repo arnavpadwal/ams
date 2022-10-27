@@ -33,7 +33,8 @@ print("Welcome to the Airport Management System")
 admin_access()'''
 
 def price_calc():
-    {"mumbai"=40
-    delhi=50
-    kolkata=60
-    chennai=70}
+    price_dict={"mumbai":46, "delhi":50, "kolkata":60, "chennai":70, "goa":45, "ahmedabad":38, "pune":55, "kanpur":65, "assam":75, "kerala":40}
+    price = price_dict[source.lower()] * price_dict[destination.lower()]
+    return(price)
+    
+
