@@ -21,10 +21,11 @@ def admin_access():
     admin_access = {"Arnav Padwal" : "ArnavP", "Arnav Rade" : "ArnavR", "Keigan Cardoza" : "KeiganC"}
     username = input("Enter case sensitive admin username : ")
     password = input("Enter admin password : ")
-     if admin_access[username]==password:
-        print("hurrah!!!")
-    else:
-        print("Username or password is incorrect!")
+    if username in admin_access():
+        if admin_access[username]==password:
+            print("success")
+        else:
+            print("Username or password is incorrect!")
 admin_access()
 
 def price_calc():
