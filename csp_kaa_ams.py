@@ -23,7 +23,7 @@ def admin_access():
     if username in admin_auth:
         password = input("Enter admin password : ")
         if admin_auth[username] == password:
-            print("success")
+            #admin_menu()   #to come
         else:
             print("Password is incorrect!")
             admin_access()
@@ -33,7 +33,7 @@ def admin_access():
 admin_access()
 
 def price_calc():
-    mumbai=40
+    {mumbai=40
     delhi=50
     kolkata=60
-    chennai=70
+    chennai=70}
