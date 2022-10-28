@@ -1,0 +1,20 @@
+Tables :
+
+1. users-
+contains columns EmailID,password
+ 
+2. bookings
+contains TourID,EmailID,Name,Date of booking,Date of travelling,source,destination,FlightNo,FlightName,no_of_tickets,SeatNos,TotalFare
+
+3. flights
+FlightNo,FlightName,source,destination,Fare
+
+4. cabin_crew
+EmpID,Empname,Designation,FlightNo,Salary
+
+5. staff
+EmpID,Empname,Designation,CounterNo,Salary
+
+6. security
+EmpID,Empname,Designation,GateNo,Salary
+
