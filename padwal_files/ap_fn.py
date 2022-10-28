@@ -7,5 +7,8 @@ def price_calc():
 
 def booking_id():
     booking_id=random.randint(247922,993784)
+    query="select Booking_ID from user"
+    result=cursor.execute(query)
+    #if booking_id in 
     return booking_id
 print(booking_id())

@@ -44,5 +44,3 @@ def price_calc():
     price = price_dict[source.lower()] * price_dict[destination.lower()]
     return(price)
 
-def 
-
