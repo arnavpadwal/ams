@@ -6,7 +6,7 @@ cursor = mydb.cursor()
 
 def price_calc():
     price_dict={"mumbai":46, "delhi":50, "kolkata":60, "chennai":70, "goa":45, "ahmedabad":38, "pune":55, "kanpur":65, "assam":75, "kerala":40}
-    price = price_dict[source.lower()] * price_dict[destination.lower()]
+    fare = price_dict[source.lower()] * price_dict[destination.lower()]
     return(price)
 
 def booking_id():
@@ -20,5 +20,29 @@ def booking_id():
                 break
         break
     return booking_id
+
+def user_invoice():
+    print("""
     
+    ******** INVOICE ********
+
+    Name                : %s
+
+    Email ID            : %s
+
+    Booking ID          : %s
+
+    Source              : %s
+
+    Destination         : %s
+
+    Flight No           : %s
+
+    Number of Tickets   : %s
+
+    Seat_No             : %s
+
+    Total_Fare          : %s
+    
+    """%(name, email_id, booking_id(), source, destination, flight_no, ticket_qty, seat_no, price_calc()))
 
