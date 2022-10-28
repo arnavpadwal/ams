@@ -11,8 +11,12 @@ fare               -- variable holding the final cost/price/fare of the flight t
 name               -- name of the user
 email_id           -- email id of the user
 flight_no          -- flight no selected by user
-tickets_qty       -- number of tickets booked by user
-
+tickets_qty        -- number of tickets booked by user
+phone              -- user phone number (asked after booking confirmation)
+booking_date       -- date of booking the ticket
+flight_date        -- 3 days after booking date
+company_name       -- flight company name
+flight_companies   -- dictionary containing flight company codes and full names
 
 ============= USER DEFINED FN VARIABLES =============
 
@@ -20,6 +24,10 @@ price_calc()       -- returns ticket price
 booking_id()       -- returns allotted booking id
 user_invoice()     -- prints invoice
 seat_no()          -- returns allotted seat numbers
+save_to_bookings() -- inputs relevant data into bookings table
+
+============= PYTHON FNs USED =============
+datetime           -- used to display the system's current date and time.
 
 ============= SQL TABLES AND COLUMNS =============  
 

@@ -18,4 +18,4 @@ user_invoice()- P
 print invoice
 
 seat_no() -P 
-return seat number
+return seat number/s
