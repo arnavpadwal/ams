@@ -1,10 +1,10 @@
 Tables :
 
-1. users-
-contains columns EmailID,password
+1. user_login-
+columns: Email_ID,password
  
 2. bookings
-contains TourID,EmailID,Name,Date of booking,Date of travelling,source,destination,FlightNo,FlightName,no_of_tickets,SeatNos,TotalFare
+contains Booking_ID,Email_ID,Name,Date of booking,Date of travelling,source,destination,FlightNo,FlightName,no_of_tickets,SeatNos,TotalFare
 
 3. flights
 FlightNo,FlightName,source,destination,Fare
