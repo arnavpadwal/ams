@@ -1,3 +1,8 @@
+import mysql.connector
+db=mysql.connector.connect(host='localhost', user='root', passwd='root', database='ams')
+
+
+
 print("Welcome to the Airport Management System")
 
 #def main_menu():  to come
