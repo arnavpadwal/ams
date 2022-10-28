@@ -1,0 +1,18 @@
+user_details() - P
+#additional details for flight booking
+if yes in above function,
+    flight no. of choice
+    alloting id
+    add the data in table and confirm booking
+UPDATE: personal data (name, email, phone) will be the same as login details.
+
+
+price_calc()- P
+for calculating the price according to source and destination
+
+
+booking_id()- P
+alloting booking id automatically by using random module and storing it in sql bookings table.
+
+user_invoice()- P
+print invoice
