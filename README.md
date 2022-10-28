@@ -1,2 +1,4 @@
-# ams
-Airways Management System project class 12
+# A.M.S.
+Airport Management System
+
+Class 12 Project
