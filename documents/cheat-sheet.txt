@@ -1,0 +1,79 @@
+#Variable referencing file.
+#Add all your variables and user_defined_fn used here.
+#short description for user defined fn used
+
+============= BASIC VARIABLES =============
+
+source             -- Source location
+destination        -- Destination location
+price_dict         -- dictionary containing values for price calc.
+fare               -- variable holding the final cost/price/fare of the flight ticket
+name               -- name of the user
+email_id           -- email id of the user
+flight_no          -- flight no selected by user
+tickets_qty       -- number of tickets booked by user
+
+
+============= USER DEFINED FN VARIABLES =============
+
+price_calc()       -- returns ticket price
+booking_id()       -- returns allotted booking id
+user_invoice()     -- prints invoice
+seat_no()          -- returns allotted seat numbers
+
+============= SQL TABLES AND COLUMNS =============  
+
+database: ams
+
+table: user_login
+columns:
+    Email_ID 
+    password 
+ 
+table: bookings
+columns:
+    Booking_ID
+    Email_ID
+    Name
+    Booking_Date
+    Flight_Date
+    Source
+    Destination
+    Flight_No
+    Company_Name
+    Tickets_QTY
+    Seat_No
+    Total_Fare
+
+table: flights
+columns:
+    FlightNo
+    FlightName
+    Company
+    Source
+    Destination
+    Fare
+
+table: cabin_crew
+columns:
+    Emp_ID
+    Emp_Name
+    Designation
+    FlightNo
+    Salary
+
+table: staff
+columns:
+    Emp_ID
+    Emp_Name
+    Designation
+    Salary
+
+table: security
+columns:
+    Emp_ID
+    Emp_Name
+    Designation
+    Gate_No
+    Salary
+

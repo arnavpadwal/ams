@@ -12,7 +12,10 @@ for calculating the price according to source and destination
 
 
 booking_id()- P
-alloting booking id automatically by using random module and storing it in sql bookings table.
+alloting booking id automatically by using random module
 
 user_invoice()- P
 print invoice
+
+seat_no() -P 
+return seat number
