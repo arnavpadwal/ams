@@ -11,11 +11,14 @@ def price_calc():
 
 def booking_id():
     while True:
-        booking_id=random.randint(247922,993784)
-        cursor.seek(0)
+        booking_id=random.randint(147922,993784)
         query="select Booking_ID from bookings"
-        result=cursor.execute(query)
-        if booking_id not in result:
-            break
+        cursor.execute(query)
+        result=cursor.fetchall()
+        for i in result:
+            if booking_id not in i:
+                break
+        break
     return booking_id
-print(booking_id())
+    
+
