@@ -22,11 +22,11 @@ def user_access():
                     print("Wrong username or password")
                     continue
 
-     elif ch == 2:
-         user_signup()
+    elif ch == 2:
+        user_signup()
 
-     else:
-         system_exit()
+    else:
+        system_exit()
 
 def user_signup():
     Uid = input("Enter your Email ID :")
