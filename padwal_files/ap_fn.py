@@ -88,3 +88,5 @@ def user_invoice():
 
 def save_to_bookings(): 
     query = "insert into bookings values(%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%s,%s,)"%(booking_id, name, email_id, booking_date, flight_date, source, destination, flight_no, seat_no, company_name, ticket_qty, fare)
+    cursor.execute(query)
+    mydb.commit()
