@@ -96,7 +96,7 @@ def user_allotment(n): # n = tickets_qty
         print(j,end ='')
 
 def change_password():
-     while True:
+    while True:
             name = input("Enter username :")
             old_passw = input("Enter your old password :")
             sql = 'select * from user_login'
@@ -115,7 +115,7 @@ def change_password():
                         continue
                     else:
                         break
-      system_exit()
+    system_exit()
 
     
         
