@@ -7,7 +7,7 @@ def user_access():
 
     if ch == 1:
         flag = 0
-        while flag = 0:
+        while flag == 0:
             name = input("Enter username :")
             passw = input("Enter your password :")
             sql = 'select * from user_login'
@@ -107,7 +107,7 @@ def user_allotment(n): # n = tickets_qty
 
 def change_password():
      flag = 0
-     while flag = 0:
+     while flag == 0:
          name = input("Enter username :")
          old_passw = input("Enter your old password :")
          sql = 'select * from user_login'
