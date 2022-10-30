@@ -6,18 +6,18 @@ cursor = mydb.cursor()
 
 print("Welcome to the Airport Management System")
 
-#def main_menu():  to come
-#    print("""==============Main Menu============
+'''def main_menu():  to come
+    print("""==============Main Menu============
 
-#1. Enter Admin Interface
-#2. Enter User Interface
-#3. Exit""")
-#    choice = int(input("choose operation to be performed[1/2/3] : "))
-#    while choice != '0':
-#        if choice == '1':
-#        elif choice == '2':
-#        elif choice == '3':
-#        else: exit()
+1. Enter Admin Interface
+2. Enter User Interface
+3. Exit""")
+    choice = int(input("choose operation to be performed[1/2/3] : "))
+    while choice != '0':
+        if choice == '1':
+        elif choice == '2':
+        elif choice == '3':
+        else: exit()'''
 
 
 #def change_password():
@@ -38,9 +38,9 @@ print("Welcome to the Airport Management System")
         admin_access()
 admin_access()'''
 
-def price_calc():
+'''def price_calc():
     price_dict={"mumbai":46, "delhi":50, "kolkata":60, "chennai":70, "goa":45, "ahmedabad":38, "pune":55, "kanpur":65, "assam":75, "kerala":40}
     price = price_dict[source.lower()] * price_dict[destination.lower()]
-    return(price)
+    return(price)'''
     
-def
+
