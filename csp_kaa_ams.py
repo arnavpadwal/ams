@@ -1,3 +1,4 @@
+import module
 import mysql.connector
 mydb=mysql.connector.connect(host='localhost', user='root', passwd='root', database='ams')
 cursor = mydb.cursor()
@@ -37,6 +38,21 @@ print("Welcome to the Airport Management System")
         print("Username is incorrect!")
         admin_access()
 admin_access()'''
+
+def admin_menu():
+    print("""=================Admin Menu=================
+1. Add data
+2. Update data
+3. Display data
+3. Go back
+4. Exit""")
+    choice = int(input("Enter operation to be performed<1/2/3/4>: "))
+    while choice != '0':
+        if choice == '1':
+            admin_choice_add() # working on by keigan
+
+
+
 
 '''def price_calc():
     price_dict={"mumbai":46, "delhi":50, "kolkata":60, "chennai":70, "goa":45, "ahmedabad":38, "pune":55, "kanpur":65, "assam":75, "kerala":40}
