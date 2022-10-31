@@ -109,7 +109,7 @@ def change_password():
     while flag == 0:
         name = input("Enter username :")
         old_passw = input("Enter your old password :")
-         sql = 'select * from user_login'
+        sql = 'select * from user_login'
         cursor.execute(sql)
         rec = cursor.fetchall()
         for i in rec:
@@ -118,13 +118,13 @@ def change_password():
                 flag = 1
                     
 
-                else :
-                    print("Wrong username or password")
-                    ch = input("Want to try again? (Y/N):").upper
-                    if ch == 'Y':
-                        flag = 0
-                    else:
-                        flag = 2
+            else :
+                print("Wrong username or password")
+                ch = input("Want to try again? (Y/N):").upper
+                if ch == 'Y':
+                    flag = 0
+                else:
+                    flag = 2
 
     if flag == 1:
         new_passw = input("Enter new password :")
