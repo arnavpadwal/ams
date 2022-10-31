@@ -56,11 +56,7 @@ columns:
 table: flights
 columns:
     FlightNo
-    FlightName
     Company
-    Source   
-    Destination
-    Fare
 
 table: cabin_crew
 columns:
