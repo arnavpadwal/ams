@@ -31,11 +31,11 @@ def user_access():
         elif flag == 2:
             system_exit()
 
-     elif ch == 2:
-         user_signup()
+    elif ch == 2:
+        user_signup()
 
-     else:
-         system_exit()
+    else:
+        system_exit()
 
 def user_signup():
     Uid = input("Enter your Email ID :")
@@ -105,17 +105,17 @@ def user_allotment(n): # n = tickets_qty
         print(j,end ='')
 
 def change_password():
-     flag = 0
-     while flag == 0:
-         name = input("Enter username :")
-         old_passw = input("Enter your old password :")
+    flag = 0
+    while flag == 0:
+        name = input("Enter username :")
+        old_passw = input("Enter your old password :")
          sql = 'select * from user_login'
-         cursor.execute(sql)
-         rec = cursor.fetchall()
-         for i in rec:
-             if i == [name, passw]:
-                 print("Access granted")
-                 flag = 1
+        cursor.execute(sql)
+        rec = cursor.fetchall()
+        for i in rec:
+            if i == [name, passw]:
+                print("Access granted")
+                flag = 1
                     
 
                 else :
@@ -126,13 +126,13 @@ def change_password():
                     else:
                         flag = 2
 
-      if flag == 1:
-          new_passw = input("Enter new password :")
-          sql = "Update user_login set password = %s where EmailID = %s"
-          L = [new_passw,name]
-          data = (L)
-          cursor.execute(sql,data)
-          mydb.commit()
+    if flag == 1:
+        new_passw = input("Enter new password :")
+        sql = "Update user_login set password = %s where EmailID = %s"
+        L = [new_passw,name]
+        data = (L)
+        cursor.execute(sql,data)
+        mydb.commit()
 
-      else:
-          system_exit()
+    else:
+        system_exit()
