@@ -47,8 +47,8 @@ def user_signup():
     mydb.commit()
     print("Account successfully created")
     system_exit()
-    
-    
+
+
 def user_menu1():
     print("Menu ")
     print("1.Search")

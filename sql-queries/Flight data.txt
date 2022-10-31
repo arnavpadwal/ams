@@ -1,5 +1,4 @@
-
-create table flights(SrNo int(2) unique key not null auto_increment,FlightNo varchar(20) Primary Key,Company varchar(20));
+create table flights(FlightNo varchar(20) Primary Key,Company varchar(20));
 
 insert into flights(FlightNo,Company) values('EA1034','Emirates'),
 ('EA1036','Emirates'),
