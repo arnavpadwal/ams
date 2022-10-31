@@ -58,7 +58,7 @@ columns:
     FlightNo
     FlightName
     Company
-    Source
+    Source   
     Destination
     Fare
 

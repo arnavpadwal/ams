@@ -55,7 +55,7 @@ def admin_choice_add():
                 flt = input("Enter flight number : ")
                 flt_name = input("Enter flight name : ")
                 srce = input("Enter source : ")
-                dest = input("Enter dest : ")
+                dest = input("Enter dest : ")  # SRCE DEST FARE REMOVED FROM FLIGHTS TABLE (UPDATE HERE)
                 fare = input("Enter fare : ")
                 L = [flt_num, flt_name, srce, dest, fare]
                 data = (L)
