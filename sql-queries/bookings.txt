@@ -1,4 +1,4 @@
-create table bookings(
+  create table bookings(
   Booking_ID int primary key,
   Name varchar(20) not null,
   Email_ID varchar(20) not null,
@@ -13,5 +13,4 @@ create table bookings(
   Total_Fare int not null
 );
 
-insert into bookings values(836438, "Arnav", "ap@email", "2022-10-14", "2022-10-30", "Mumbai", "Delhi", "EA7373", "14,15", "Emirates", 2, 5000),
-(836478, "Keigan", "kc@email", "2022-10-14", "2022-10-30", "Mumbai", "Delhi", "EA7373", "25,17", "Emirates", 2, 5000),(836738, "Arnav R", "ar@email", "2022-10-14", "2022-10-30", "Mumbai", "Delhi", "EA7373", "27,16", "Emirates", 2, 5000);
+

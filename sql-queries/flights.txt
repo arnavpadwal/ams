@@ -1,6 +1,7 @@
-create table flights(FlightNo varchar(20) Primary Key,Company varchar(20));
 
-insert into flights(FlightNo,Company) values('EA1034','Emirates'),
+create table flights(FlightNo varchar(20) Primary Key, Company varchar(20));
+
+insert into flights values('EA1034','Emirates'),
 ('EA1036','Emirates'),
 ('EA1038','Emirates'),
 ('EA1040','Emirates'),
