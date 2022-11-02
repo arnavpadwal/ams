@@ -52,15 +52,12 @@ def admin_choice_add():
     while choice != '0':
         if choice == '1':
             while True:
-                flt = input("Enter flight number : ")
+                flt_num = input("Enter flight number : ")
                 flt_name = input("Enter flight name : ")
-                srce = input("Enter source : ")
-                dest = input("Enter dest : ")  # SRCE DEST FARE REMOVED FROM FLIGHTS TABLE (UPDATE HERE)
-                fare = input("Enter fare : ")
-                L = [flt_num, flt_name, srce, dest, fare]
+                L = [flt_num, flt_name]
                 data = (L)
-                sql = "insert into flights values(%s,%s,%s,%s,%s)"
-                cursor.execute(sql,data)
+                sql = "insert into flights (FlightNo, FlightName) values(%s,%s)"
+                cursor.execute(sql, data)
                 mydb.commit()
                 repeat = input("Do you wish to add more flights<Y/N> : ").upper()
                 if repeat == 'N': break
@@ -110,6 +107,51 @@ def admin_choice_add():
             admin_menu()
         else: exit()
 
+def admin_choice_modify():
+    print("""=================Admin Choice Modify===============
+1. modify cabin crew flight number, salary
+2. modify staff salary
+3. modify security gate number, salary
+4. Go back
+5. Exit""")
+    choice = int(input("Enter operation to be performed : "))
+    while choice != '0':
+        if choice == '1':
+            choice_1 = input("Enter choice to modify cabin crew flight no., salary<1/2/3> : ")
+            while choice_1 != '0':
+                emp_id = input("Enter employee id whose details need to be modified : ")
+                if choice_1 == '1':
+                    flt_num = input("Assign new flight no. to employee : ")
+                    sql = "update cabin_crew set FlightNo = %s where EmpID = %s"
+                    data = ([flt_num, emp_id])
+                    cursor.execute(sql, data)
+                    mydb.commit()
+                elif choice_1 == '2':
+                    sal = input("Enter new employee salary : ")
+                    sql = "update cabin_crew set Salary = %s where EmpID = %s"
+                    data = ([sal, emp_id])
+                    cursor.execute(sql, data)
+                    mydb.commit()
+                else: admin_choice_modify()
+                repeat = input("Do you wish to modify more records? : ").upper()
+                if repeat == 'N': break
+        elif choice == '2':
+            emp_id = input("Enter employee id whose details need to be modified : ")
+            sal = input("Enter new employee salary : ")
+            sql = "update staff set Salary = %s where EmpID = %s"
+            data = ([sal, emp_id])
+            cursor.execute(sql, data)
+            mydb.commit()
+        elif choice == '3':
+            while True:
+                emp_id = input("Enter employee id whose details need to be modified : ")
+                sal = input("Enter new employee salary : ")
+                sql = "update security set Salary = %s where EmpID = %s"
+                data = ([sal, emp_id])
+                cursor.execute(sql, data)
+                mydb.commit()
+        elif choice == '4': admin_choice_modify()
+        else: break
 
 #keigan section End-------------------------------------------------------------------
 
