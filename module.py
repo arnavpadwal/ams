@@ -40,6 +40,39 @@
         admin_access()'''
 
 #keigans section--------------------------------------------------------------------
+def admin_access():
+    admin_auth = {"Arnav Padwal" : "ArnavP", "Arnav Rade" : "ArnavR", "Keigan Cardoza" : "KeiganC"}
+    username = input("Enter case sensitive admin username : ")
+    if username in admin_auth:
+        password = input("Enter admin password : ")
+        if admin_auth[username] == password:
+            admin_menu()
+        else:
+            print("Password is incorrect!")
+            admin_access()
+    else:
+        print("Username is incorrect!")
+        admin_access()
+
+def admin_menu():
+    print("""=================Admin Menu=================
+1. Add data
+2. Update data
+3. Display data
+3. Go back
+4. Exit""")
+    choice = int(input("Enter operation to be performed<1/2/3/4>: "))
+    while choice != '0':
+        if choice == '1':
+            admin_choice_add()
+        elif choice == '2':
+            admin_choice_update()
+        elif choice == '3':
+            admin_choice_display()
+        elif choice == '4':
+            main_menu()
+        else: break
+
 def admin_choice_add():
     print("""=============Admin Choice Add=============
 1. Add flights
@@ -152,6 +185,32 @@ def admin_choice_modify():
                 mydb.commit()
         elif choice == '4': admin_choice_modify()
         else: break
+
+def admin_menu_display():
+    print("""================Admin Menu Display=============
+1. Display Flights table.
+2. Display Cabin Crew table.
+3. Display Staff table.
+4. Display Security table.
+5. Go back
+6. Exit""")
+    choice = int(input("Enter the operation to be performed : "))
+    while choice != '0':
+        if choice == '1':
+            cursor.execute("Select * from flights")
+            for i in cursor: print(i)
+        elif choice == '2':
+            cursor.execute("Select * from cabin_crew")
+            for i in cursor: print(i)
+        elif choice == '3':
+            cursor.execute("Select * from staff")
+            for i in cursor: print(i)
+        elif choice == '4':
+            cursor.execute("Select * from security")
+            for i in cursor: print(i)
+        elif choice == '5': admin_menu_choice()
+        else: break
+
 
 #keigan section End-------------------------------------------------------------------
 
