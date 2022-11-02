@@ -1,23 +1,21 @@
-import random
-import datetime 
-import mysql.connector
+import random, datetime, tabulate, mysql.connector  #can we do this? 4 lines into 1?
 
 mydb=mysql.connector.connect(host='localhost', user='root', passwd='root', database='ams')
 cursor = mydb.cursor()
 
-flight_companies = {"EA" : "Emirate", "LA" : "Lufthansa", "IA" : "Indigo", "SA" : "SpiceJet"}
-
 def price_calc():
     global fare
-    price_dict = {"mumbai" : 46, "delhi" : 50, "kolkata" : 60, "chennai" : 70, "goa" : 45,
-                  "ahmedabad" : 38, "pune" : 55, "kanpur" : 65, "assam" : 75, "kerala" : 40}
-    fare = price_dict[source.lower()] * price_dict[destination.lower()]
-    return(fare)
+    price_dict = {"mumbai": 46, "delhi": 50, "kolkata": 60, "chennai": 70, "goa": 45,
+    "ahmedabad": 38, "pune": 55, "kanpur": 65, "assam": 75, "kerala": 40}
+    s = source.lower()
+    d = destination.lower()
+    fare = price_dict[s] * price_dict[d]
+    return (fare)
 
 def booking_id():
     global booking_id
     while True:
-        booking_id  =random.randint(147922, 993784)
+        booking_id = random.randint(147922, 993784)
         query = "select Booking_ID from bookings"
         cursor.execute(query)
         result = cursor.fetchall()
@@ -27,17 +25,27 @@ def booking_id():
         break
     return booking_id
 
+def flight_no():
+    flight_companies={"EA":"Emirate","LA":"Lufthansa","IA":"Indigo","SA":"SpiceJet"}
+    global flight_no
+    flight_no = input("\nEnter flight number of your choice: ").upper()
+    #check flight number and allot company name accordingly
+    flight_codes = flight_companies.keys()
+    for i in flight_codes:
+        if i == flight_no[0:2]:
+            global company_name
+            company_name = flight_companies[i]
+            is_valid = True
+            break
+
 def user_details():
     global phone, flight_no, ticket_qty, booking_date, flight_date, company_name
-    print("\n\nEnter the following details to proceed with the booking:\n\n")
+    #user input
+    print("\nEnter the following details to proceed with the booking:\n")
     phone = int(input("Enter phone number: "))
-    flight_no = input("Enter flight number of your choice: ")
-    for i in flight_companies.keys():
-        if flight_no.upper()[0:2] == i[0:2]:
-            company_name = flight_companies[i]
-            break
-        break
-
+    is_valid = False
+    while is_valid == False:
+        flight_no()
     ticket_qty = int(input("Enter the number of tickets to be booked: "))
     booking_date = datetime.date.today()
     flight_date = booking_date + datetime.timedelta(days=3)
@@ -45,7 +53,7 @@ def user_details():
 def seat_no():
     global seat_no
     allotted_seats = []
-    query = "select Seat_No from bookings"  
+    query = "select Seat_No from bookings"
     cursor.execute(query)
     result = cursor.fetchall()
     for i in result:
@@ -60,7 +68,8 @@ def seat_no():
             break
     return seat_no
 
-def user_invoice():
+def user_invoice(): #USE TABULATE HERE
+    invoice_details_lst = [name, phone, email_id, booking_id, source, destination, flight_no, ticket_qty, seat_no, fare]
     print("""
     ******** INVOICE ********
     Name                : %s
@@ -82,10 +91,12 @@ def user_invoice():
     Seat_No             : %s
 
     Total_Fare          : %s
-    
-    """%(name, phone, email_id, booking_id, source, destination, flight_no, ticket_qty, seat_no, fare))
 
-def save_to_bookings(): 
-    query = "insert into bookings values(%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%s,%s,)"%(booking_id, name, email_id, booking_date, flight_date, source, destination, flight_no, seat_no, company_name, ticket_qty, fare)
+    """ % (name, phone, email_id, booking_id, source, destination, flight_no, ticket_qty, seat_no, fare))
+
+def save_to_bookings():
+    query = "insert into bookings values(%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%s,%s,)" % (
+    booking_id, name, email_id, booking_date, flight_date, source, destination, flight_no, seat_no, company_name,
+    ticket_qty, fare)
     cursor.execute(query)
     mydb.commit()
