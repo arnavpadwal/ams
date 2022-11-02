@@ -2,10 +2,9 @@ import module
 import random
 import datetime
 import mysql.connector
-mydb=mysql.connector.connect(host='localhost', user='root', passwd='root', database='ams')
+
+mydb = mysql.connector.connect(host='localhost', user='root', passwd='root', database='ams')
 cursor = mydb.cursor()
-
-
 
 print("Welcome to the Airport Management System")
 
@@ -22,8 +21,7 @@ print("Welcome to the Airport Management System")
         elif choice == '3':
         else: exit()'''
 
-
-#def change_password():
+# def change_password():
 
 
 '''def admin_access():
@@ -41,6 +39,7 @@ print("Welcome to the Airport Management System")
         admin_access()
 admin_access()'''
 
+
 def admin_menu():
     print("""=================Admin Menu=================
 1. Add data
@@ -51,14 +50,10 @@ def admin_menu():
     choice = int(input("Enter operation to be performed<1/2/3/4>: "))
     while choice != '0':
         if choice == '1':
-            admin_choice_add() # working on by keigan
-
-
+            admin_choice_add()  # working on by keigan
 
 
 '''def price_calc():
     price_dict={"mumbai":46, "delhi":50, "kolkata":60, "chennai":70, "goa":45, "ahmedabad":38, "pune":55, "kanpur":65, "assam":75, "kerala":40}
     price = price_dict[source.lower()] * price_dict[destination.lower()]
     return(price)'''
-    
-
