@@ -38,7 +38,6 @@ def user_signup():
     print("Account successfully created")
     user_access()
 
-
 def user_menu_1():
     print("""=================User Menu 1==================
 1. Search flights
@@ -67,7 +66,6 @@ def user_confirm():
     if choice == 'Y': user_data()
     else: exit()
 
-
 def user_allotment(n): # n = tickets_qty
     import random
     L = []
@@ -81,35 +79,32 @@ def user_allotment(n): # n = tickets_qty
                 L.append(seat)
                 break
     print("Your seat numbers : ")
-    for j in L: print(j,end ='')
+    for j in L: print(j, end='')
 
 def change_password():
     flag = 0
     while flag == 0:
         name = input("Enter username : ")
-        old_passw = input("Enter your old password : ")
+        old_passwd= input("Enter your old password : ")
         sql = 'select * from user_login'
         cursor.execute(sql)
         rec = cursor.fetchall()
         for i in rec:
-            if i == [name, passw]:
+            if i == [name, old_passwd]:
                 print("Access granted")
                 flag = 1
             else :
-                print("Wrong username or password")
-                ch = input("Want to try again? (Y/N):").upper
-                if ch == 'Y':
+                print("Wrong username or password has been entered!")
+                repeat = input("Want to try again?<Y/N> : ").upper()
+                if repeat == 'Y':
                     flag = 0
                 else:
                     flag = 2
-
     if flag == 1:
         new_passw = input("Enter new password :")
         sql = "Update user_login set password = %s where EmailID = %s"
-        L = [new_passw,name]
-        data = (L)
-        cursor.execute(sql,data)
+        data = ([new_passw, name])
+        cursor.execute(sql, data)
         mydb.commit()
-
-    else:
-        system_exit()
+    elif flag == 2: exit()
+    else: exit()

@@ -5,21 +5,22 @@ import mysql.connector
 mydb=mysql.connector.connect(host='localhost', user='root', passwd='root', database='ams')
 cursor = mydb.cursor()
 
-flight_companies={"EA":"Emirate","LA":"Lufthansa","IA":"Indigo","SA":"SpiceJet"}
+flight_companies = {"EA" : "Emirate", "LA" : "Lufthansa", "IA" : "Indigo", "SA" : "SpiceJet"}
 
 def price_calc():
     global fare
-    price_dict={"mumbai":46, "delhi":50, "kolkata":60, "chennai":70, "goa":45, "ahmedabad":38, "pune":55, "kanpur":65, "assam":75, "kerala":40}
+    price_dict = {"mumbai" : 46, "delhi" : 50, "kolkata" : 60, "chennai" : 70, "goa" : 45,
+                  "ahmedabad" : 38, "pune" : 55, "kanpur" : 65, "assam" : 75, "kerala" : 40}
     fare = price_dict[source.lower()] * price_dict[destination.lower()]
     return(fare)
 
 def booking_id():
     global booking_id
     while True:
-        booking_id=random.randint(147922,993784)
-        query="select Booking_ID from bookings"
+        booking_id  =random.randint(147922, 993784)
+        query = "select Booking_ID from bookings"
         cursor.execute(query)
-        result=cursor.fetchall()
+        result = cursor.fetchall()
         for i in result:
             if booking_id not in i:
                 break
@@ -46,14 +47,14 @@ def seat_no():
     allotted_seats = []
     query = "select Seat_No from bookings"  
     cursor.execute(query)
-    result=cursor.fetchall()                
+    result = cursor.fetchall()
     for i in result:
         x = (i[0].split(","))
         for i in x:
             allotted_seats.append(int(i))
     for i in range(ticket_qty):
         while True:
-            seat_no=random.randint(1,199)
+            seat_no = random.randint(1, 199)
             if seat_no not in allotted_seats:
                 break
             break
@@ -61,9 +62,7 @@ def seat_no():
 
 def user_invoice():
     print("""
-    
     ******** INVOICE ********
-
     Name                : %s
 
     Phone               : %s

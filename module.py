@@ -1,45 +1,21 @@
 #DON'T CALL ANY FNs HERE. PLS DELETE FN CALL AFTER TESTING THE FUNCTION
 #USE BREAKPOINTS TO TEST FUNCTIONS
 
-'''def main_menu():  TO COME
-    print("""============== Main Menu ==============
 
-1. Admin Interface
-2. User Interface
+#keigans section start--------------------------------------------------------------------
+def main_menu():
+    print("""==============Main Menu============
+1. Enter Admin Interface
+2. Enter User Interface
 3. Exit""")
-
-    while True:
-        choice = int(input("Enter choice [1/2/3] : "))
-        if choice == 1:
-            #admin_access()
-        elif choice == 2:
-            #user_access()
-        elif choice == 3:
-            print("\n\nThank You")
-            exit()
-        else: 
-            print("Invalid Input!\n\n")
-            break'''
-
-
-#def change_password():
-
-
-'''def admin_access():
-    admin_auth = {"Arnav Padwal" : "ArnavP", "Arnav Rade" : "ArnavR", "Keigan Cardoza" : "KeiganC"}
-    username = input("Enter case sensitive admin username : ")
-    if username in admin_auth:
-        password = input("Enter admin password : ")
-        if admin_auth[username] == password: 
-            #admin_menu()   to come
-        else:
-            print("Password is incorrect!")
+    choice = int(input("choose operation to be performed[1/2/3] : "))
+    while choice != '0':
+        if choice == '1':
             admin_access()
-    else:
-        print("Username is incorrect!")
-        admin_access()'''
+        elif choice == '2':
+            user_access()
+        else: exit()
 
-#keigans section--------------------------------------------------------------------
 def admin_access():
     admin_auth = {"Arnav Padwal" : "ArnavP", "Arnav Rade" : "ArnavR", "Keigan Cardoza" : "KeiganC"}
     username = input("Enter case sensitive admin username : ")
@@ -215,22 +191,20 @@ def admin_menu_display():
 #keigan section End-------------------------------------------------------------------
 
 #padwal section START-------------------------------------------------------------------
-
-flight_companies={"EA":"Emirate","LA":"Lufthansa","IA":"Indigo","SA":"SpiceJet"}
-
 def price_calc():
     global fare
-    price_dict={"mumbai":46, "delhi":50, "kolkata":60, "chennai":70, "goa":45, "ahmedabad":38, "pune":55, "kanpur":65, "assam":75, "kerala":40}
+    price_dict = {"mumbai": 46, "delhi": 50, "kolkata": 60, "chennai": 70, "goa": 45,
+                  "ahmedabad": 38, "pune": 55, "kanpur": 65, "assam": 75, "kerala": 40}
     fare = price_dict[source.lower()] * price_dict[destination.lower()]
-    return(fare)
+    return (fare)
 
 def booking_id():
     global booking_id
     while True:
-        booking_id=random.randint(147922,993784)
-        query="select Booking_ID from bookings"
+        booking_id = random.randint(147922, 993784)
+        query = "select Booking_ID from bookings"
         cursor.execute(query)
-        result=cursor.fetchall()
+        result = cursor.fetchall()
         for i in result:
             if booking_id not in i:
                 break
@@ -255,16 +229,16 @@ def user_details():
 def seat_no():
     global seat_no
     allotted_seats = []
-    query = "select Seat_No from bookings"  
+    query = "select Seat_No from bookings"
     cursor.execute(query)
-    result=cursor.fetchall()                
+    result = cursor.fetchall()
     for i in result:
         x = (i[0].split(","))
         for i in x:
             allotted_seats.append(int(i))
     for i in range(ticket_qty):
         while True:
-            seat_no=random.randint(1,199)
+            seat_no = random.randint(1, 199)
             if seat_no not in allotted_seats:
                 break
             break
@@ -272,9 +246,7 @@ def seat_no():
 
 def user_invoice():
     print("""
-    
     ******** INVOICE ********
-
     Name                : %s
 
     Phone               : %s
@@ -294,12 +266,128 @@ def user_invoice():
     Seat_No             : %s
 
     Total_Fare          : %s
-    
-    """%(name, phone, email_id, booking_id, source, destination, flight_no, ticket_qty, seat_no, fare))
 
-def save_to_bookings(): 
-    query = "insert into bookings values(%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%s,%s,)"%(booking_id, name, email_id, booking_date, flight_date, source, destination, flight_no, seat_no, company_name, ticket_qty, fare)
+    """ % (name, phone, email_id, booking_id, source, destination, flight_no, ticket_qty, seat_no, fare))
+
+def save_to_bookings():
+    query = "insert into bookings values(%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%s,%s,)" % (
+    booking_id, name, email_id, booking_date, flight_date, source, destination, flight_no, seat_no, company_name,
+    ticket_qty, fare)
     cursor.execute(query)
     mydb.commit()
 
 #padwal section END-------------------------------------------------------------------
+
+#Rade section start-----------------------------------------------------------------------
+def user_access():
+    print("""===================User Access===================
+1. Login
+2. Sign up
+3. Exit""")
+    choice = int(input("Enter your choice : "))
+    if choice == 1:
+        flag = 0
+        while flag == 0:
+            name = input("Enter username : ")
+            passw = input("Enter your password : ")
+            sql = "select * from user_login"
+            cursor.execute(sql)
+            rec = cursor.fetchall()
+            for i in rec:
+                if i == [name, passw]:
+                    print("Access granted")
+                    flag = 1
+                else :
+                    print("Wrong username or password has been entered!")
+                    repeat = input("Want to try again?<Y/N>: ").upper()
+                    if repeat == 'Y':
+                        flag = 0
+                    else:
+                        flag = 2
+        if flag == 1: user_menu_1()
+        elif flag == 2: exit()
+    elif choice == 2: user_signup()
+    else: exit()
+
+def user_signup():
+    Uid = input("Enter your Email ID : ")
+    passwd = input("Create a new password : ")
+    data = ([Uid,passwd])
+    sql = "insert into user_login values(%s,%s)"
+    cursor.execute(sql,data)
+    mydb.commit()
+    print("Account successfully created")
+    user_access()
+
+def user_menu_1():
+    print("""=================User Menu 1==================
+1. Search flights
+2. Check your bookings
+3. Exit""")
+    choice = int(input("Enter your choice:"))
+    if choice == 1: user_search()
+    elif choice == 2: user_mybookings()
+    else: exit()
+
+def user_search():
+    # for asking and searching the info of flights
+    source = input("Enter source : ").title
+    dest = input("Enter destination : ").title
+    sql = "select * from flights"
+    cursor.execute(sql)
+    rec = cursor.fetchall()
+    print("Flight no.",'\t',"Flight Name",'\t',"Source",'\t',"Desination",'\t',"Ticket Fare")
+    for i in rec:
+        if source and dest in i:
+            print(i[0],'\t',i[1],'\t',i[2],'\t',i[3],'\t',i[4])
+    user_confirm()
+
+def user_confirm():
+    choice = input("Do you want to finalize/continue your booking?<Y/N> : ").upper()
+    if choice == 'Y': user_data()
+    else: exit()
+
+def user_allotment(n): # n = tickets_qty
+    import random
+    L = []
+    rows = ['A','B','C','D','E','F']
+    for i in range(1,n+1):
+        while True:
+            x = str(random.randint(1,38))
+            y = random.choice(rows)
+            seat = str(x + y)
+            if seat not in L:
+                L.append(seat)
+                break
+    print("Your seat numbers : ")
+    for j in L: print(j, end='')
+
+def change_password():
+    flag = 0
+    while flag == 0:
+        name = input("Enter username : ")
+        old_passwd= input("Enter your old password : ")
+        sql = 'select * from user_login'
+        cursor.execute(sql)
+        rec = cursor.fetchall()
+        for i in rec:
+            if i == [name, old_passwd]:
+                print("Access granted")
+                flag = 1
+            else :
+                print("Wrong username or password has been entered!")
+                repeat = input("Want to try again?<Y/N> : ").upper()
+                if repeat == 'Y':
+                    flag = 0
+                else:
+                    flag = 2
+    if flag == 1:
+        new_passw = input("Enter new password :")
+        sql = "Update user_login set password = %s where EmailID = %s"
+        data = ([new_passw, name])
+        cursor.execute(sql, data)
+        mydb.commit()
+    elif flag == 2: exit()
+    else: exit()
+
+#Rade section End-----------------------------------------------------------------------

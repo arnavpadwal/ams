@@ -70,9 +70,6 @@ user_menu_2() - K
 gives option for display ,cancel,update,exit
 
 
-system_exit() - T
-for exiting the program any where (to be given where ever needed)
-
 seat_no() - P 
 returns allotted seat number/s
 
