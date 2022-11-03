@@ -1,4 +1,4 @@
-import random, datetime, tabulate, mysql.connector  #can we do this? 4 lines into 1?
+import random, datetime, tabulate, mysql.connector
 
 mydb=mysql.connector.connect(host='localhost', user='root', passwd='root', database='ams')
 cursor = mydb.cursor()
@@ -10,48 +10,50 @@ def price_calc():
     s = source.lower()
     d = destination.lower()
     fare = price_dict[s] * price_dict[d]
-    return (fare)
+    return fare
 
 def booking_id():
-    global booking_id
+    global b_id
     while True:
-        booking_id = random.randint(147922, 993784)
+        b_id = random.randint(147922, 993784)
         query = "select Booking_ID from bookings"
         cursor.execute(query)
         result = cursor.fetchall()
         for i in result:
-            if booking_id not in i:
+            if b_id not in i:
                 break
         break
-    return booking_id
+    return b_id
 
 def flight_no():
-    flight_companies={"EA":"Emirate","LA":"Lufthansa","IA":"Indigo","SA":"SpiceJet"}
-    global flight_no
-    flight_no = input("\nEnter flight number of your choice: ").upper()
+    flt_companies={"EA":"Emirate","LA":"Lufthansa","IA":"Indigo","SA":"SpiceJet"}
+    global flt_no
+    flt_no = input("\nEnter flight number of your choice: ").upper()
     #check flight number and allot company name accordingly
-    flight_codes = flight_companies.keys()
-    for i in flight_codes:
-        if i == flight_no[0:2]:
+    flt_codes = flt_companies.keys()
+    for i in flt_codes:
+        if i == flt_no[0:2]:
             global company_name
-            company_name = flight_companies[i]
+            company_name = flt_companies[i]
             is_valid = True
             break
+    return flt_no
 
 def user_details():
-    global phone, flight_no, ticket_qty, booking_date, flight_date, company_name
+    global phone, ticket_qty, booking_date, flight_date
     #user input
     print("\nEnter the following details to proceed with the booking:\n")
-    phone = int(input("Enter phone number: "))
+    phone = int(input("\nEnter phone number: "))
     is_valid = False
     while is_valid == False:
+        print("\nInvalid flight number, enter again:")
         flight_no()
-    ticket_qty = int(input("Enter the number of tickets to be booked: "))
+    ticket_qty = int(input("\nEnter the number of tickets to be booked: "))
     booking_date = datetime.date.today()
     flight_date = booking_date + datetime.timedelta(days=3)
 
 def seat_no():
-    global seat_no
+    global s_no
     allotted_seats = []
     query = "select Seat_No from bookings"
     cursor.execute(query)
@@ -62,11 +64,11 @@ def seat_no():
             allotted_seats.append(int(i))
     for i in range(ticket_qty):
         while True:
-            seat_no = random.randint(1, 199)
-            if seat_no not in allotted_seats:
+            s_no = random.randint(1, 199)
+            if s_no not in allotted_seats:
                 break
             break
-    return seat_no
+    return s_no
 
 def user_invoice(): #USE TABULATE HERE
     invoice_details_lst = [name, phone, email_id, booking_id, source, destination, flight_no, ticket_qty, seat_no, fare]
