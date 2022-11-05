@@ -2,14 +2,17 @@ import datetime
 import mysql.connector
 import random
 import tabulate
+
 mydb = mysql.connector.connect(host='localhost', user='root', passwd='root', database='ams')
 cursor = mydb.cursor()
+
 
 def price_calc():
     global fare
     price_dict = {"mumbai": 46, "delhi": 50, "kolkata": 60, "chennai": 70, "goa": 45,
                   "ahmedabad": 38, "pune": 55, "kanpur": 65, "assam": 75, "kerala": 40}
     fare = price_dict[source.lower()] * price_dict[destination.lower()]
+
 
 def booking_id():
     global b_id
@@ -22,6 +25,7 @@ def booking_id():
             if b_id not in i:
                 break
         break
+
 
 def flight_no():
     flt_companies = {"EA": "Emirate", "LA": "Lufthansa", "IA": "Indigo", "SA": "SpiceJet"}
@@ -36,6 +40,7 @@ def flight_no():
             is_valid = True
             break
 
+
 def user_details():
     global phone, ticket_qty, booking_date, flight_date
     # user input
@@ -48,6 +53,7 @@ def user_details():
     ticket_qty = int(input("\nEnter the number of tickets to be booked: "))
     booking_date = datetime.date.today()
     flight_date = booking_date + datetime.timedelta(days=3)
+
 
 def seat_no():
     global s_no
@@ -65,6 +71,7 @@ def seat_no():
             if s_no not in allotted_seats:
                 break
             break
+
 
 def user_invoice():  # USE TABULATE HERE
     invoice_details_lst = [name, phone, email_id, booking_id, source, destination, flight_no, ticket_qty, seat_no, fare]
@@ -93,6 +100,7 @@ def user_invoice():  # USE TABULATE HERE
     Total_Fare          : %s
 
     """ % (name, phone, email_id, booking_id, source, destination, flight_no, ticket_qty, seat_no, fare))
+
 
 def save_to_bookings():
     query = "insert into bookings values(%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%s,%s,)" % (
