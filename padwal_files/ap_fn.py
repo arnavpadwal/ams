@@ -11,7 +11,7 @@ def price_calc():
     global fare
     price_dict = {"mumbai": 46, "delhi": 50, "kolkata": 60, "chennai": 70, "panji": 45,
                   "ahmedabad": 38, "pune": 55, "kanpur": 65, "guwahati": 75, "bengaluru": 40}
-    fare = price_dict[source.lower()] * price_dict[destination.lower()]
+    fare = price_dict[source.lower()] * price_dict[destination.lower()] * ticket_qty
 
 
 def booking_id():
