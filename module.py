@@ -291,16 +291,16 @@ def user_access():
     if choice == 1:
         flag = 0
         while flag == 0:
-            name = input("Enter username : ")
-            passw = input("Enter your password : ")
+            name = input("Enter email id : ")
+            passwd = input("Enter your password : ")
             sql = "select * from user_login"
             cursor.execute(sql)
             rec = cursor.fetchall()
             for i in rec:
-                if i == [name, passw]:
+                if i == [name, passwd]:
                     print("Access granted")
                     flag = 1
-                else :
+                else:
                     print("Wrong username or password has been entered!")
                     repeat = input("Want to try again?<Y/N>: ").upper()
                     if repeat == 'Y':
