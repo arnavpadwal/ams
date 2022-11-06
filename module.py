@@ -1,14 +1,15 @@
 #DON'T CALL ANY FNs HERE. PLS DELETE FN CALL AFTER TESTING THE FUNCTION
 #USE BREAKPOINTS TO TEST FUNCTIONS
-
-
+import mysql.connector
+mydb = mysql.connector.connect(host='localhost', user='root', passwd='root', database='ams')
+cursor = mydb.cursor()
 #keigans section start--------------------------------------------------------------------
 def main_menu():
     print("""==============Main Menu============
 1. Enter Admin Interface
 2. Enter User Interface
 3. Exit""")
-    choice = int(input("choose operation to be performed[1/2/3] : "))
+    choice = input("choose operation to be performed[1/2/3] : ")
     while choice != '0':
         if choice == '1':
             admin_access()
@@ -28,7 +29,6 @@ def admin_access():
             admin_access()
     else:
         print("Username is incorrect!")
-        admin_access()
 
 def admin_menu():
     print("""=================Admin Menu=================
@@ -57,7 +57,7 @@ def admin_choice_add():
 4. Add security
 5. Go back
 6. Exit""")
-    choice = int(input("Enter operation to be performed<1/2/3/4/5/6> : "))
+    choice = input("Enter operation to be performed<1/2/3/4/5/6> : ")
     while choice != '0':
         if choice == '1':
             while True:
@@ -123,7 +123,7 @@ def admin_choice_modify():
 3. modify security gate number, salary
 4. Go back
 5. Exit""")
-    choice = int(input("Enter operation to be performed : "))
+    choice = input("Enter operation to be performed : ")
     while choice != '0':
         if choice == '1':
             choice_1 = input("Enter choice to modify cabin crew flight no., salary<1/2/3> : ")
@@ -170,7 +170,7 @@ def admin_menu_display():
 4. Display Security table.
 5. Go back
 6. Exit""")
-    choice = int(input("Enter the operation to be performed : "))
+    choice = input("Enter the operation to be performed : ")
     while choice != '0':
         if choice == '1':
             cursor.execute("Select * from flights")
