@@ -69,7 +69,6 @@ if update : update statement and print new invoice
 user_menu_2() - K
 gives option for display ,cancel,update,exit
 
-
 seat_no() - P 
 returns allotted seat number/s
 

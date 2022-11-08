@@ -1,11 +1,12 @@
-#DON'T CALL ANY FNs HERE. PLS DELETE FN CALL AFTER TESTING THE FUNCTION
-#USE BREAKPOINTS TO TEST FUNCTIONS
+#DON'T CALL ANY FNs HERE. PLS DELETE FN CALL AFTER TESTING THE FUNCTION.
+#USE BREAKPOINTS TO TEST FUNCTIONS.
 import mysql.connector
 mydb = mysql.connector.connect(host='localhost', user='root', passwd='root', database='ams')
 cursor = mydb.cursor()
-#keigans section start--------------------------------------------------------------------
+
+#keigans section start-----------------------------------------------------------------------------
 def main_menu():
-    print("""==============Main Menu============
+    print("""==============Main Menu=============
 1. Enter Admin Interface
 2. Enter User Interface
 3. Exit""")
@@ -27,8 +28,7 @@ def admin_access():
         else:
             print("Password is incorrect!")
             admin_access()
-    else:
-        print("Username is incorrect!")
+    else: print("Username is incorrect!")
 
 def admin_menu():
     print("""=================Admin Menu=================
@@ -50,7 +50,7 @@ def admin_menu():
         else: break
 
 def admin_choice_add():
-    print("""=============Admin Choice Add=============
+    print("""=============Admin Choice Add==============
 1. Add flights
 2. Add cabin crew
 3. Add staff
@@ -188,9 +188,9 @@ def admin_menu_display():
         else: break
 
 
-#keigan section End-------------------------------------------------------------------
+#keigan section End----------------------------------------------------------------------------------
 
-#padwal section START-------------------------------------------------------------------
+#padwal section START--------------------------------------------------------------------------------
 
 flight_companies={"EA":"Emirate","LA":"Lufthansa","IA":"Indigo","SA":"SpiceJet"}
 
@@ -279,9 +279,9 @@ def save_to_bookings():
     cursor.execute(query)
     mydb.commit()
 
-#padwal section END-------------------------------------------------------------------
+#padwal section END-------------------------------------------------------------------------------------
 
-#Rade section start-----------------------------------------------------------------------
+#Rade section start-------------------------------------------------------------------------------------
 def user_access():
     print("""===================User Access===================
 1. Login
@@ -393,4 +393,4 @@ def change_password():
     elif flag == 2: exit()
     else: exit()
 
-#Rade section End-----------------------------------------------------------------------
+#Rade section End--------------------------------------------------------------------------------------
