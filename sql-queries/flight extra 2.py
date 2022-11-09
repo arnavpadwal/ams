@@ -22,7 +22,7 @@ for i in range(1,i+1):
             global company_name
             company_name = flt_companies[i]
 
-    data = (flt_no,source,dest,company_name)
+    data = (flt_no,company_name,source,dest)
     sql = "insert into flights values(%s,%s,%s,%s)"
     cursor.execute(sql,data)
     mydb.commit()
