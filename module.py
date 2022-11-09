@@ -61,8 +61,7 @@ def admin_choice_add():
             while True:
                 flt_num = input("Enter flight number : ")
                 flt_name = input("Enter flight name : ")
-                L = [flt_num, flt_name]
-                data = (L)
+                data = ([flt_num, flt_name])
                 sql = "insert into flights (FlightNo, FlightName) values(%s,%s)"
                 cursor.execute(sql, data)
                 mydb.commit()
@@ -75,8 +74,7 @@ def admin_choice_add():
                 desg = input("Enter designation : ")
                 flt_num = input("Enter flight number : ")
                 sal = input("Enter salary : ")
-                L = [empid, empname, desg, flt_num, sal]
-                data = (L)
+                data = ([empid, empname, desg, flt_num, sal])
                 sql = "insert into cabin_crew values(%s,%s,%s,%s,%s)"
                 cursor.execute(sql, data)
                 mydb.commit()
@@ -89,8 +87,7 @@ def admin_choice_add():
                 desg = input("Enter designation : ")
                 cnt_num = input("Enter counter number : ")
                 sal = input("Enter salary : ")
-                L = [empid, empname, desg, cnt_num, sal]
-                data = (L)
+                data = ([empid, empname, desg, cnt_num, sal])
                 sql = "insert into staff values(%s,%s,%s,%s,%s)"
                 cursor.execute(sql, data)
                 mydb.commit()
@@ -100,12 +97,10 @@ def admin_choice_add():
             while True:
                 empid = input("Enter employee id : ")
                 empname = input("Enter employee name : ")
-                desg = input("Enter designation : ")
                 gt_num = input("Enter gate number : ")
                 sal = input("Enter salary : ")
-                L = [empid, empname, desg, gt_num, sal]
-                data = (L)
-                sql = "insert into security values(%s,%s,%s,%s,%s)"
+                data = ([empid, empname, gt_num, sal])
+                sql = "insert into security values(%s,%s,%s,%s)"
                 cursor.execute(sql, data)
                 mydb.commit()
                 repeat = input("Do you wish to add more guards<Y/N> : ").upper()
@@ -201,25 +196,25 @@ def admin_choice_delete():
     while choice != '0':
         if choice == '1':
             flt_num = input("Enter flight no. to delete : ")
-            sql = "delete from flights where FlightNo = '%s'"%(empid)
+            sql = "delete from flights where FlightNo = %s"%(empid)
             cursor.execute(sql)
             mydb.commit()
             admin_menu()
         elif choice == '2':
             empid = input("Enter cabin crew Employee id to delete : ")
-            sql = "delete from cabin_crew where Emp_ID = '%s'"%(empid)
+            sql = "delete from cabin_crew where Emp_ID = %s"%(empid)
             cursor.execute(sql)
             mydb.commit()
             admin_menu()
         elif choice == '3':
             empid = input("Enter staff employee id to delete : ")
-            sql = "delete from staff where Emp_ID = '%s'"%(empid)
+            sql = "delete from staff where Emp_ID = %s"%(empid)
             cursor.execute(sql)
             mydb.commit()
             admin_menu()
         elif choice == '4':
             empid = input("Enter security employee id to delete : ")
-            sql = "delete from security where Emp_ID = '%s'"%(empid)
+            sql = "delete from security where Emp_ID = %s"%(empid)
             cursor.execute(sql)
             mydb.commit()
             admin_menu()
