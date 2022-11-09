@@ -35,18 +35,16 @@ def admin_menu():
 1. Add data
 2. Update data
 3. Display data
-3. Go back
-4. Exit""")
-    choice = int(input("Enter operation to be performed<1/2/3/4>: "))
+4. Delete data
+5. Go back
+6. Exit""")
+    choice = input("Enter operation to be performed<1/2/3/4>: ")
     while choice != '0':
-        if choice == '1':
-            admin_choice_add()
-        elif choice == '2':
-            admin_choice_update()
-        elif choice == '3':
-            admin_choice_display()
-        elif choice == '4':
-            main_menu()
+        if choice == '1': admin_choice_add()
+        elif choice == '2': admin_choice_update()
+        elif choice == '3': admin_choice_display()
+        elif choice == '4': admin_choice_delete()
+        elif choice == '5': main_menu()
         else: break
 
 def admin_choice_add():
@@ -63,13 +61,12 @@ def admin_choice_add():
             while True:
                 flt_num = input("Enter flight number : ")
                 flt_name = input("Enter flight name : ")
-                L = [flt_num, flt_name]
-                data = (L)
+                data = ([flt_num, flt_name])
                 sql = "insert into flights (FlightNo, FlightName) values(%s,%s)"
                 cursor.execute(sql, data)
                 mydb.commit()
                 repeat = input("Do you wish to add more flights<Y/N> : ").upper()
-                if repeat == 'N': break
+                if repeat == 'N': admin_choice_add()
         elif choice == '2':
             while True:
                 empid = input("Enter employee id : ")
@@ -77,47 +74,42 @@ def admin_choice_add():
                 desg = input("Enter designation : ")
                 flt_num = input("Enter flight number : ")
                 sal = input("Enter salary : ")
-                L = [empid, empname, desg, flt_num, sal]
-                data = (L)
+                data = ([empid, empname, desg, flt_num, sal])
                 sql = "insert into cabin_crew values(%s,%s,%s,%s,%s)"
                 cursor.execute(sql, data)
                 mydb.commit()
                 repeat = input("Do you wish to add more crew members<Y/N> : ").upper()
-                if repeat == 'N': break
+                if repeat == 'N': admin_choice_add()
         elif choice == '3':
             while True:
                 empid = input("Enter employee id : ")
                 empname = input("Enter employee name : ")
                 desg = input("Enter designation : ")
-                cnt_num = input("Enter counter number : ")
                 sal = input("Enter salary : ")
-                L = [empid, empname, desg, cnt_num, sal]
-                data = (L)
-                sql = "insert into staff values(%s,%s,%s,%s,%s)"
+                data = ([empid, empname, desg, sal])
+                sql = "insert into staff values(%s,%s,%s,%s)"
                 cursor.execute(sql, data)
                 mydb.commit()
                 repeat = input("Do you wish to add more staff<Y/N> : ").upper()
-                if repeat == 'N': break
+                if repeat == 'N': admin_choice_add()
         elif choice == '4':
             while True:
                 empid = input("Enter employee id : ")
                 empname = input("Enter employee name : ")
-                desg = input("Enter designation : ")
                 gt_num = input("Enter gate number : ")
                 sal = input("Enter salary : ")
-                L = [empid, empname, desg, gt_num, sal]
-                data = (L)
-                sql = "insert into security values(%s,%s,%s,%s,%s)"
+                data = ([empid, empname, gt_num, sal])
+                sql = "insert into security values(%s,%s,%s,%s)"
                 cursor.execute(sql, data)
                 mydb.commit()
                 repeat = input("Do you wish to add more guards<Y/N> : ").upper()
-                if repeat == 'N': break
+                if repeat == 'N': admin_choice_add()
         elif choice == '5':
             admin_menu()
         else: exit()
 
-def admin_choice_modify():
-    print("""=================Admin Choice Modify===============
+def admin_choice_update():
+    print("""=================Admin Choice Update===============
 1. modify cabin crew flight number, salary
 2. modify staff salary
 3. modify security gate number, salary
@@ -131,13 +123,13 @@ def admin_choice_modify():
                 emp_id = input("Enter employee id whose details need to be modified : ")
                 if choice_1 == '1':
                     flt_num = input("Assign new flight no. to employee : ")
-                    sql = "update cabin_crew set FlightNo = %s where EmpID = %s"
+                    sql = "update cabin_crew set FlightNo = %s where Emp_ID = %s"
                     data = ([flt_num, emp_id])
                     cursor.execute(sql, data)
                     mydb.commit()
                 elif choice_1 == '2':
                     sal = input("Enter new employee salary : ")
-                    sql = "update cabin_crew set Salary = %s where EmpID = %s"
+                    sql = "update cabin_crew set Salary = %s where Emp_ID = %s"
                     data = ([sal, emp_id])
                     cursor.execute(sql, data)
                     mydb.commit()
@@ -147,7 +139,7 @@ def admin_choice_modify():
         elif choice == '2':
             emp_id = input("Enter employee id whose details need to be modified : ")
             sal = input("Enter new employee salary : ")
-            sql = "update staff set Salary = %s where EmpID = %s"
+            sql = "update staff set Salary = %s where Emp_ID = %s"
             data = ([sal, emp_id])
             cursor.execute(sql, data)
             mydb.commit()
@@ -155,14 +147,14 @@ def admin_choice_modify():
             while True:
                 emp_id = input("Enter employee id whose details need to be modified : ")
                 sal = input("Enter new employee salary : ")
-                sql = "update security set Salary = %s where EmpID = %s"
+                sql = "update security set Salary = %s where Emp_ID = %s"
                 data = ([sal, emp_id])
                 cursor.execute(sql, data)
                 mydb.commit()
         elif choice == '4': admin_choice_modify()
         else: break
 
-def admin_menu_display():
+def admin_choice_display():
     print("""================Admin Menu Display=============
 1. Display Flights table.
 2. Display Cabin Crew table.
@@ -175,18 +167,62 @@ def admin_menu_display():
         if choice == '1':
             cursor.execute("Select * from flights")
             for i in cursor: print(i)
+            admin_menu()
         elif choice == '2':
             cursor.execute("Select * from cabin_crew")
             for i in cursor: print(i)
+            admin_menu()
         elif choice == '3':
             cursor.execute("Select * from staff")
             for i in cursor: print(i)
+            admin_menu()
         elif choice == '4':
             cursor.execute("Select * from security")
             for i in cursor: print(i)
+            admin_menu()
         elif choice == '5': admin_menu_choice()
         else: break
 
+def admin_choice_delete():
+    print("""================Admin Menu Display=============
+1. Delete from Flights table.
+2. Delete from Cabin Crew table.
+3. Delete from Staff table.
+4. Delete from Security table.
+5. Go back
+6. Exit""")
+    choice = input("Enter the operation to be performed : ")
+    while choice != '0':
+        if choice == '1':
+            flt_num = input("Enter flight no. to delete : ")
+            sql = "delete from flights where FlightNo = %s"
+            data = (flt_num,)
+            cursor.execute(sql, data)
+            mydb.commit()
+            admin_menu()
+        elif choice == '2':
+            empid = input("Enter cabin crew Employee id to delete : ")
+            sql = "delete from cabin_crew where Emp_ID = %s"
+            data = (empid,)
+            cursor.execute(sql, data)
+            mydb.commit()
+            admin_menu()
+        elif choice == '3':
+            empid = input("Enter staff employee id to delete : ")
+            sql = "delete from staff where Emp_ID = %s"
+            data = (empid,)
+            cursor.execute(sql, data)
+            mydb.commit()
+            admin_menu()
+        elif choice == '4':
+            empid = input("Enter security employee id to delete : ")
+            sql = "delete from security where Emp_ID = %s"
+            data = (empid,)
+            cursor.execute(sql, data)
+            mydb.commit()
+            admin_menu()
+        elif choice == '5': admin_menu()
+        else: exit()
 
 #keigan section End----------------------------------------------------------------------------------
 

@@ -4,7 +4,6 @@ def user_access():
     print("2.Sign up")
     print("3.Exit")
     ch = int(input("Enter your choice :"))
-
     if ch == 1:
         flag = 0
         while flag == 0:
