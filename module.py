@@ -201,32 +201,30 @@ def admin_choice_delete():
     while choice != '0':
         if choice == '1':
             flt_num = input("Enter flight no. to delete : ")
-            sql = "delete from flights where FlightNo = %s"
-            data = ([flt_num])
-            cursor.execute(data, sql)
+            sql = "delete from flights where FlightNo = '%s'"%(empid)
+            cursor.execute(sql)
             mydb.commit()
-            main_menu()
-        elif choice == '1':
+            admin_menu()
+        elif choice == '2':
             empid = input("Enter cabin crew Employee id to delete : ")
-            sql = "delete from flights where FlightNo = %s"
-            data = ([empid])
-            cursor.execute(data, sql)
+            sql = "delete from cabin_crew where Emp_ID = '%s'"%(empid)
+            cursor.execute(sql)
             mydb.commit()
-            main_menu()
-        if choice == '1':
+            admin_menu()
+        elif choice == '3':
             empid = input("Enter staff employee id to delete : ")
-            sql = "delete from flights where FlightNo = %s"
-            data = ([empid])
-            cursor.execute(data, sql)
+            sql = "delete from staff where Emp_ID = '%s'"%(empid)
+            cursor.execute(sql)
             mydb.commit()
-            main_menu()
-        if choice == '1':
+            admin_menu()
+        elif choice == '4':
             empid = input("Enter security employee id to delete : ")
-            sql = "delete from flights where FlightNo = %s"
-            data = ([empid])
-            cursor.execute(data, sql)
+            sql = "delete from security where Emp_ID = '%s'"%(empid)
+            cursor.execute(sql)
             mydb.commit()
-            main_menu()
+            admin_menu()
+        elif choice == '5': admin_menu()
+        else: exit()
 #keigan section End----------------------------------------------------------------------------------
 
 #padwal section START--------------------------------------------------------------------------------
