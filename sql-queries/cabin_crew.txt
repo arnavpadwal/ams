@@ -1,1 +1,3 @@
 create table cabin_crew(Emp_ID varchar(20) primary key, Emp_Name varchar(20) not null, Designation varchar(20) not null, FlightNo varchar(20) not null, Salary int not null);
+
+insert into cabin_crew values('PID0001', 'Rahul Sharma', 'Pilot', 'SA1034', 150000);
