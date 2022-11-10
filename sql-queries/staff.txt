@@ -1,0 +1,5 @@
+create table staff(Emp_ID varchar(20) primary key, Emp_Name varchar(20) not null, Designation varchar(20) not null, Salary int not null);
+
+fst_names = ["Gage","Gisselle","Javion","Aniya","Keira","Joseph""Brice","Dayanara","Quinn","Camryn","Carly","Armani","Amy","Alondra","Rachel","Kylee","Lily","Diego","Allan","River","Trey","Jillian","Darren"]
+
+lst_name = ["Beasley","Delgado","Stephenson","Gilbert","Hubbard","Garrett","Farley","Lutz","Pittman","Woods","Leon","Martinez","Hart","Montes","Rodgers","Foley","Nguyen","Hickman","Larsen","Atkins","Miranda","Blair","Nunez","Khan"]

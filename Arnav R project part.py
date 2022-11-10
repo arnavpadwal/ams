@@ -4,7 +4,6 @@ def user_access():
     print("2.Sign up")
     print("3.Exit")
     ch = int(input("Enter your choice :"))
-
     if ch == 1:
         flag = 0
         while flag == 0:
@@ -88,22 +87,47 @@ def user_confirm():
         system_exit()
 
 
-def user_allotment(n): # n = tickets_qty
+def user_allotment(n, fn):  # n = tickets_qty
     import random
-    L = []
-    rows = ['A','B','C','D','E','F']
-    for i in range(1,n+1):
-        while True:
-            x = str(random.randint(1,38))
-            y = random.choice(rows)
-            seat = str(x + y)
-            if seat not in L:
-                L.append(seat)
-                break
+    dict = {}
+    count = 0
+    sql = "select Flight_No,Seat_No from bookings"
+    cursor.execute(sql)
+    rec = cursor.fetchall()
+    for i in rec:
+        count += 1
+    for i in rec:
+        for j in range(1,count+1):
+            dict[j] = [i[0],i[1]]    # makes {'1':['fno.1','23A 3B 2C'],'2':['fno.2','3D 5F 7B']}
 
-    print("Your seat numbers :")
-    for j in L:
-        print(j,end ='')
+    rows = ['A', 'B', 'C', 'D', 'E', 'F']
+    flag = 0
+    while flag == 0:
+        L1 = []
+        for i in range(1, n + 1):
+            while True:                
+                x = str(random.randint(1, 38))
+                y = str(random.choice(rows))
+                seat = str(x + y)
+                if seat not in L1:
+                    L1.append(seat)
+                    break
+                else:
+                    continue
+
+        for j in dict.values():
+            if j[0] == fn:
+                L2 = j[1].split()                
+                for m in L1:
+                    if m in L2:
+                        flag = 0
+
+        else:
+            flag += 1
+            
+    nos = str(' '.join(L1))
+    return nos
+        
 
 def change_password():
      flag = 0

@@ -28,7 +28,7 @@ choise - login or signup
 user_signup() -R
 if account does not exist it creates one and adds to the user account table
 
-user_menu1() -R
+user_menu_1() -R
 gives options of search, mybookings, exit
 
 user_ search() -R
@@ -66,12 +66,8 @@ if display: display statement
 if cancel: cancel statement
 if update : update statement and print new invoice
 
-user_menu2() - K
+user_menu_2() - K
 gives option for display ,cancel,update,exit
-
-
-system_exit() - T
-for exiting the program any where (to be given where ever needed)
 
 seat_no() - P 
 returns allotted seat number/s
