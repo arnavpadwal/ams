@@ -1,4 +1,4 @@
-create table staff(Emp_ID varchar(20) primary key, Emp_Name varchar(20) not null, Designation varchar(20) not null, Salary int not null);
+create table staff(Emp_ID varchar(20) primary key, Emp_Name varchar(40) not null, Salary int not null);
 
 fst_names = ["Gage","Gisselle","Javion","Aniya","Keira","Joseph""Brice","Dayanara","Quinn","Camryn","Carly","Armani","Amy","Alondra","Rachel","Kylee","Lily","Diego","Allan","River","Trey","Jillian","Darren"]
 
