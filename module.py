@@ -36,15 +36,17 @@ def admin_menu():
 2. Update data
 3. Display data
 4. Delete data
-5. Go back
-6. Exit""")
+5. Search Data
+6. Go back
+7. Exit""")
     choice = input("Enter operation to be performed<1/2/3/4>: ")
     while choice != '0':
         if choice == '1': admin_choice_add()
         elif choice == '2': admin_choice_update()
         elif choice == '3': admin_choice_display()
         elif choice == '4': admin_choice_delete()
-        elif choice == '5': main_menu()
+        elif choice == '5': admin_choice_search()
+        elif choice == '6': main_menu()
         else: break
 
 def admin_choice_add():
@@ -222,6 +224,33 @@ def admin_choice_delete():
             mydb.commit()
             admin_menu()
         elif choice == '5': admin_menu()
+        else: exit()
+
+def admin_choice_search():
+    print("""=================Admin Choice Search=================
+1. Search Flights data
+2. Search Cabin crew data
+3. Search Staff data
+4. Search Security data
+5. Go back
+6. Exit""")
+    choice = input("Enter the operation to be performed : ")
+    while choice != '0':
+        if choice == '1':
+            srch_flt_no = input("Enter flight id to be searched : ")
+            sql = "select * from flights where FlightNo = %s"
+            data = (srch_flt_no,)
+            cursor.execute(sql,data)
+            print(cursor.fetchall())
+            admin_menu()
+        elif choice == '2':
+            srch_flt_no = input("Enter flight id to be searched : ")
+        elif choice == '3':
+            srch_flt_no = input("Enter flight id to be searched : ")
+        elif choice == '4':
+            srch_flt_no = input("Enter flight id to be searched : ")
+        elif choice == '5': admin_menu()
+
         else: exit()
 
 #keigan section End----------------------------------------------------------------------------------
