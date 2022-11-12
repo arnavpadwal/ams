@@ -1,6 +1,9 @@
 #DON'T CALL ANY FNs HERE. PLS DELETE FN CALL AFTER TESTING THE FUNCTION.
 #USE BREAKPOINTS TO TEST FUNCTIONS.
 import mysql.connector
+from tabulate import tabulate
+import datetime
+import random
 mydb = mysql.connector.connect(host='localhost', user='root', passwd='root', database='ams')
 cursor = mydb.cursor()
 
@@ -257,8 +260,6 @@ def admin_choice_search():
 
 #padwal section START--------------------------------------------------------------------------------
 
-flight_companies={"EA":"Emirate","LA":"Lufthansa","IA":"Indigo","SA":"SpiceJet"}
-
 def price_calc():
     global fare
     price_dict = {"mumbai": 46, "delhi": 50, "kolkata": 60, "chennai": 70, "panji": 45,
@@ -267,35 +268,51 @@ def price_calc():
     fare = {"EA":ticket_fare*1.15 , "LA":ticket_fare*1.09 , "IA":ticket_fare*1.05 , "SA":ticket_fare*1.07 }
 
 def booking_id():
-    global booking_id
+    global b_id
     while True:
-        booking_id = random.randint(147922, 993784)
+        b_id = random.randint(147922, 993784)
         query = "select Booking_ID from bookings"
         cursor.execute(query)
         result = cursor.fetchall()
         for i in result:
-            if booking_id not in i:
+            if b_id not in i:
                 break
         break
-    return booking_id
+
+def flight_no():
+    flt_companies = {"EA": "Emirate", "LA": "Lufthansa", "IA": "Indigo", "SA": "SpiceJet"}
+    global flt_no
+    flt_no = input("\nEnter flight number of your choice: ").upper()
+    # check flight number and allot company name accordingly
+    flt_codes = flt_companies.keys()
+    for i in flt_codes:
+        if i == flt_no[0:2]:
+            global company_name
+            company_name = flt_companies[i]
+            is_valid = True
+            break
 
 def user_details():
-    global phone, flight_no, ticket_qty, booking_date, flight_date, company_name
-    print("\n\nEnter the following details to proceed with the booking:\n\n")
-    phone = int(input("Enter phone number: "))
-    flight_no = input("Enter flight number of your choice: ")
-    for i in flight_companies.keys():
-        if flight_no.upper()[0:2] == i[0:2]:
-            company_name = flight_companies[i]
-            break
-        break
-
-    ticket_qty = int(input("Enter the number of tickets to be booked: "))
+    global phone, ticket_qty, booking_date, flight_date
+    # user input
+    print("\nEnter the following details to proceed with the booking: ")
+    phone = int(input("\nEnter phone number: "))
+    is_valid = False
+    while is_valid == False:
+        print("\nInvalid flight number, enter again:")
+        flight_no()
+    ticket_qty = int(input("\nEnter the number of tickets to be booked: "))
     booking_date = datetime.date.today()
     flight_date = booking_date + datetime.timedelta(days=3)
 
+def user_bookings():
+    print("""================ Bookings ================
+    """)
 
-def user_invoice():
+def user_invoice():  # USE TABULATE HERE
+    invoice_details_lst = [name, phone, email_id, booking_id, source, destination, flight_no, ticket_qty, seat_no, fare]
+    invoice_table = tabulate(invoice_details_lst)
+
     print("""
     ******** INVOICE ********
     Name                : %s
@@ -322,8 +339,8 @@ def user_invoice():
 
 def save_to_bookings():
     query = "insert into bookings values(%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%s,%s,)" % (
-    booking_id, name, email_id, booking_date, flight_date, source, destination, flight_no, seat_no, company_name,
-    ticket_qty, fare)
+        b_id, name, email_id, booking_date, flight_date, source, destination, flt_no, s_no, company_name,
+        ticket_qty, fare)
     cursor.execute(query)
     mydb.commit()
 
@@ -392,10 +409,10 @@ def user_signup():
         cursor.execute(sql2, data)
         mydb.commit()
         print("Account successfully created")
-        main_menu()
+        user_access()
     else:
         print("Account already exists")
-        main_menu()
+        user_access()
 
 
 def user_menu1():
@@ -406,14 +423,11 @@ def user_menu1():
 """)
     ch = int(input("Enter your choice:"))
 
-    if ch == 1:
-        user_search()
+    if ch == 1: user_search()
 
-    elif ch == 2:
-        user_mybookings()
+    elif ch == 2: user_mybookings()
 
-    else:
-        main_menu()
+    else: main_menu()
 
 def user_search():
     # for asking and searching the info of flights
@@ -425,16 +439,17 @@ def user_search():
     cursor.execute(sql,data)
     for i in cursor:
         L.append(i)
-    header = ["Flight no.","Flight Name","Source","Desination","Ticket Fare"]
-    print(tabulate(L,headers = 'header'))
+    header = ["Flight no.","Flight Name","Source","Desination","Ticket Fare", "Time"]
+    print(tabulate(L,headers = header))
     user_confirm()
 
 def user_confirm():
-    ch = input("Do you want to continue with your booking? (Y/N):").upper()
-    if ch == 'Y':
-        user_data()
-    else:
-        main_menu()
+    ch = input("Do you want to continue with your booking? (y/n):").upper()
+    if ch == 'Y': 
+        flight_no()
+        user_details()
+        booking_id()
+    else: user_menu()
 
 
 def seat_no(n, fn):  # n = tickets_qty # flight no = fn

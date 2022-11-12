@@ -44,7 +44,7 @@ def flight_no():
 def user_details():
     global phone, ticket_qty, booking_date, flight_date
     # user input
-    print("\nEnter the following details to proceed with the booking:\n")
+    print("\nEnter the following details to proceed with the booking: ")
     phone = int(input("\nEnter phone number: "))
     is_valid = False
     while is_valid == False:
@@ -54,30 +54,9 @@ def user_details():
     booking_date = datetime.date.today()
     flight_date = booking_date + datetime.timedelta(days=3)
 
-
-def seat_no():
-    global s_no
-    allotted_seats = []
-    query = "select Seat_No from bookings"
-    cursor.execute(query)
-    result = cursor.fetchall()
-    for i in result:
-        x = (i[0].split(","))
-        for j in x:
-            allotted_seats.append(int(i))
-    for i in range(ticket_qty):
-        while True:
-            s_no = random.randint(1, 199)
-            if s_no not in allotted_seats:
-                break
-            break
-
 def user_bookings():
     print("""================ Bookings ================
     """)
-
-
-
 
 def user_invoice():  # USE TABULATE HERE
     invoice_details_lst = [name, phone, email_id, booking_id, source, destination, flight_no, ticket_qty, seat_no, fare]
@@ -106,7 +85,6 @@ def user_invoice():  # USE TABULATE HERE
     Total_Fare          : %s
 
     """ % (name, phone, email_id, booking_id, source, destination, flight_no, ticket_qty, seat_no, fare))
-
 
 def save_to_bookings():
     query = "insert into bookings values(%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%s,%s,)" % (
