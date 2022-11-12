@@ -1,8 +1,61 @@
-import random
+import datetime
+from random import randrange
 import mysql.connector
+import random
 
-mydb = mysql.connector.connect(host='localhost', user='root', passwd='', database='ams')
+mydb = mysql.connector.connect(host='localhost', user='root', passwd='root', database='ams')
 cursor = mydb.cursor()
+
+def randomTimeRange():
+    start_time_input = '01:25:00'
+    end_time_input = '23:30:43'
+
+    start_time = start_time_input.split(':')
+    end_time = end_time_input.split(':')
+
+    start_hour = start_time[0]
+    start_minute = start_time[1]
+    start_seconds = start_time[2]
+
+    end_hour = end_time[0]
+    end_minute = end_time[1]
+    end_seconds = end_time[2]
+
+    # Get maximum end time for randrange
+    if end_hour == '23' and end_minute != '00':
+        max_hour = 23 + 1
+    else:
+        max_hour = start_hour
+
+    if start_minute > end_minute:
+        minutes = randrange(int(end_minute), int(start_minute))
+    elif start_minute < end_minute:
+        minutes = randrange(int(start_minute), int(end_minute))
+
+    if start_hour == end_hour:
+        hours = start_hour
+    elif start_hour != end_hour:
+        hours = randrange(int(start_hour), int(max_hour))
+
+    if str(hours) == str(end_hour):
+        minutes = randrange(int(start_minute), int(end_minute))
+    else:
+        minutes = randrange(0, 59)
+
+    if start_seconds == end_seconds:
+        seconds = start_seconds
+    elif start_seconds > end_seconds:
+        seconds = randrange(int(start_seconds), int(59))
+    elif start_seconds < end_seconds:
+        seconds = randrange(int(start_seconds), int(end_seconds))
+
+    h = int(hours)
+    m = int(minutes)
+    s = int(seconds)
+
+    return f"{h:02d}" + ':' + f"{m:02d}" + ':' + f"{s:02d}"
+
+#print(randomTimeRange()))
 
 fst_names = ["Gage", "Gisselle", "Javion", "Aniya", "Keira", "Joseph""Brice", "Dayanara", "Quinn", "Camryn", "Carly",
              "Armani", "Amy", "Alondra", "Rachel", "Kylee", "Lily", "Diego", "Allan", "River", "Trey", "Jillian",
@@ -66,9 +119,8 @@ while i <= 500:
 
     designation = emp_dict[empid[0:3]]
 
-    sql_flt = "insert into flights values('%s','%s','%s','%s','%s');" % (flt_no, company_name, source, dest, ticket)
-    sql_cabin_crew = "insert into cabin_crew values('%s','%s','%s','%s',%s);" % (
-    empid, name, designation, flt_no, salary)
+    sql_flt = "insert into flights values('%s','%s','%s','%s','%s','%s');" % (flt_no, company_name, source, dest, ticket, randomTimeRange())
+    sql_cabin_crew = "insert into cabin_crew values('%s','%s','%s','%s',%s);" % (empid, name, designation, flt_no, salary)
     cursor.execute(sql_flt)
     cursor.execute(sql_cabin_crew)
     mydb.commit()
