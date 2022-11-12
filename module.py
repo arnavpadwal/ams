@@ -1,10 +1,12 @@
-#DON'T CALL ANY FNs HERE. PLS DELETE FN CALL AFTER TESTING THE FUNCTION.
-#USE BREAKPOINTS TO TEST FUNCTIONS.
+# DON'T CALL ANY FNs HERE. PLS DELETE FN CALL AFTER TESTING THE FUNCTION.
+# USE BREAKPOINTS TO TEST FUNCTIONS.
 import mysql.connector
+
 mydb = mysql.connector.connect(host='localhost', user='root', passwd='root', database='ams')
 cursor = mydb.cursor()
 
-#keigans section start-----------------------------------------------------------------------------
+
+# keigans section start-----------------------------------------------------------------------------
 def main_menu():
     print("""==============Main Menu=============
 1. Enter Admin Interface
@@ -16,10 +18,12 @@ def main_menu():
             admin_access()
         elif choice == '2':
             user_access()
-        else: exit()
+        else:
+            exit()
+
 
 def admin_access():
-    admin_auth = {"Arnav Padwal" : "ArnavP", "Arnav Rade" : "ArnavR", "Keigan Cardoza" : "KeiganC"}
+    admin_auth = {"Arnav Padwal": "ArnavP", "Arnav Rade": "ArnavR", "Keigan Cardoza": "KeiganC"}
     username = input("Enter case sensitive admin username : ")
     if username in admin_auth:
         password = input("Enter admin password : ")
@@ -28,7 +32,9 @@ def admin_access():
         else:
             print("Password is incorrect!")
             admin_access()
-    else: print("Username is incorrect!")
+    else:
+        print("Username is incorrect!")
+
 
 def admin_menu():
     print("""=================Admin Menu=================
@@ -41,13 +47,21 @@ def admin_menu():
 7. Exit""")
     choice = input("Enter operation to be performed<1/2/3/4>: ")
     while choice != '0':
-        if choice == '1': admin_choice_add()
-        elif choice == '2': admin_choice_update()
-        elif choice == '3': admin_choice_display()
-        elif choice == '4': admin_choice_delete()
-        elif choice == '5': admin_choice_search()
-        elif choice == '6': main_menu()
-        else: break
+        if choice == '1':
+            admin_choice_add()
+        elif choice == '2':
+            admin_choice_update()
+        elif choice == '3':
+            admin_choice_display()
+        elif choice == '4':
+            admin_choice_delete()
+        elif choice == '5':
+            admin_choice_search()
+        elif choice == '6':
+            main_menu()
+        else:
+            break
+
 
 def admin_choice_add():
     print("""=============Admin Choice Add==============
@@ -108,7 +122,9 @@ def admin_choice_add():
                 if repeat == 'N': admin_choice_add()
         elif choice == '5':
             admin_menu()
-        else: exit()
+        else:
+            exit()
+
 
 def admin_choice_update():
     print("""=================Admin Choice Update===============
@@ -135,7 +151,8 @@ def admin_choice_update():
                     data = ([sal, emp_id])
                     cursor.execute(sql, data)
                     mydb.commit()
-                else: admin_choice_modify()
+                else:
+                    admin_choice_modify()
                 repeat = input("Do you wish to modify more records? : ").upper()
                 if repeat == 'N': break
         elif choice == '2':
@@ -153,8 +170,11 @@ def admin_choice_update():
                 data = ([sal, emp_id])
                 cursor.execute(sql, data)
                 mydb.commit()
-        elif choice == '4': admin_choice_modify()
-        else: break
+        elif choice == '4':
+            admin_choice_modify()
+        else:
+            break
+
 
 def admin_choice_display():
     print("""================Admin Menu Display=============
@@ -182,8 +202,11 @@ def admin_choice_display():
             cursor.execute("Select * from security")
             for i in cursor: print(i)
             admin_menu()
-        elif choice == '5': admin_menu_choice()
-        else: break
+        elif choice == '5':
+            admin_menu_choice()
+        else:
+            break
+
 
 def admin_choice_delete():
     print("""================Admin Menu Display=============
@@ -223,8 +246,11 @@ def admin_choice_delete():
             cursor.execute(sql, data)
             mydb.commit()
             admin_menu()
-        elif choice == '5': admin_menu()
-        else: exit()
+        elif choice == '5':
+            admin_menu()
+        else:
+            exit()
+
 
 def admin_choice_search():
     print("""=================Admin Choice Search=================
@@ -240,7 +266,7 @@ def admin_choice_search():
             srch_flt_no = input("Enter flight id to be searched : ")
             sql = "select * from flights where FlightNo = %s"
             data = (srch_flt_no,)
-            cursor.execute(sql,data)
+            cursor.execute(sql, data)
             print(cursor.fetchall())
             admin_menu()
         elif choice == '2':
@@ -249,22 +275,27 @@ def admin_choice_search():
             srch_flt_no = input("Enter flight id to be searched : ")
         elif choice == '4':
             srch_flt_no = input("Enter flight id to be searched : ")
-        elif choice == '5': admin_menu()
+        elif choice == '5':
+            admin_menu()
 
-        else: exit()
+        else:
+            exit()
 
-#keigan section End----------------------------------------------------------------------------------
 
-#padwal section START--------------------------------------------------------------------------------
+# keigan section End----------------------------------------------------------------------------------
 
-flight_companies={"EA":"Emirate","LA":"Lufthansa","IA":"Indigo","SA":"SpiceJet"}
+# padwal section START--------------------------------------------------------------------------------
+
+flight_companies = {"EA": "Emirate", "LA": "Lufthansa", "IA": "Indigo", "SA": "SpiceJet"}
+
 
 def price_calc():
     global fare
-    price_dict = {"mumbai": 46, "delhi": 50, "kolkata": 60, "chennai": 70, "goa": 45,
-    "ahmedabad": 38, "pune": 55, "kanpur": 65, "assam": 75, "kerala": 40}
-    fare = price_dict[source.lower()] * price_dict[destination.lower()]
-    return (fare)
+    price_dict = {"mumbai": 46, "delhi": 50, "kolkata": 60, "chennai": 70, "panji": 45,
+                  "ahmedabad": 38, "pune": 55, "kanpur": 65, "guwahati": 75, "bengaluru": 40}
+    ticket_fare = price_dict[source.lower()] * price_dict[destination.lower()] * ticket_qty
+    fare = {"EA": ticket_fare * 1.15, "LA": ticket_fare * 1.09, "IA": ticket_fare * 1.05, "SA": ticket_fare * 1.07}
+
 
 def booking_id():
     global booking_id
@@ -278,6 +309,7 @@ def booking_id():
                 break
         break
     return booking_id
+
 
 def user_details():
     global phone, flight_no, ticket_qty, booking_date, flight_date, company_name
@@ -294,23 +326,6 @@ def user_details():
     booking_date = datetime.date.today()
     flight_date = booking_date + datetime.timedelta(days=3)
 
-def seat_no():
-    global seat_no
-    allotted_seats = []
-    query = "select Seat_No from bookings"
-    cursor.execute(query)
-    result = cursor.fetchall()
-    for i in result:
-        x = (i[0].split(","))
-        for i in x:
-            allotted_seats.append(int(i))
-    for i in range(ticket_qty):
-        while True:
-            seat_no = random.randint(1, 199)
-            if seat_no not in allotted_seats:
-                break
-            break
-    return seat_no
 
 def user_invoice():
     print("""
@@ -337,125 +352,202 @@ def user_invoice():
 
     """ % (name, phone, email_id, booking_id, source, destination, flight_no, ticket_qty, seat_no, fare))
 
+
 def save_to_bookings():
     query = "insert into bookings values(%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%s,%s,)" % (
-    booking_id, name, email_id, booking_date, flight_date, source, destination, flight_no, seat_no, company_name,
-    ticket_qty, fare)
+        booking_id, name, email_id, booking_date, flight_date, source, destination, flight_no, seat_no, company_name,
+        ticket_qty, fare)
     cursor.execute(query)
     mydb.commit()
 
-#padwal section END-------------------------------------------------------------------------------------
 
-#Rade section start-------------------------------------------------------------------------------------
+# padwal section END-------------------------------------------------------------------------------------
+
+# Rade section start-------------------------------------------------------------------------------------
 def user_access():
     print("""===================User Access===================
 1. Login
 2. Sign up
-3. Exit""")
-    choice = int(input("Enter your choice : "))
-    if choice == 1:
-        flag = 0
-        while flag == 0:
-            name = input("Enter email id : ")
-            passwd = input("Enter your password : ")
-            sql = "select * from user_login"
-            cursor.execute(sql)
-            rec = cursor.fetchall()
-            for i in rec:
-                if i == [name, passwd]:
-                    print("Access granted")
-                    flag = 1
-                else:
-                    print("Wrong username or password has been entered!")
-                    repeat = input("Want to try again?<Y/N>: ").upper()
-                    if repeat == 'Y':
-                        flag = 0
-                    else:
-                        flag = 2
-        if flag == 1: user_menu_1()
-        elif flag == 2: exit()
-    elif choice == 2: user_signup()
-    else: exit()
+3. Exit
+""")
+    ch = int(input("Enter your choice :"))
+    if ch == 1:
+        user_login()
+
+    elif ch == 2:
+        user_signup()
+
+    else:
+        main_menu()
+
+
+def user_login():
+    flag = 0
+    L = []
+    while flag == 0:
+        name = input("Enter your username :")
+        passw = input("Enter your password :")
+
+        sql = 'select * from user_login;'
+        cursor.execute(sql)
+        for i in cursor:
+            L.append(i)
+
+        if (name, passw) in L:
+            print("Access granted")
+            flag = 1
+
+        else:
+            print("Wrong username or password")
+            ch = input("Want to try again? (y/n):").upper()
+            if ch == 'Y':
+                flag = 0
+
+            else:
+                flag = 2
+
+    if flag == 1:
+        user_menu1()
+    elif flag == 2:
+        main_menu()
+
 
 def user_signup():
-    Uid = input("Enter your Email ID : ")
-    passwd = input("Create a new password : ")
-    data = ([Uid,passwd])
-    sql = "insert into user_login values(%s,%s)"
-    cursor.execute(sql,data)
-    mydb.commit()
-    print("Account successfully created")
-    user_access()
+    l = []
+    n = 0
+    Uid = input("Enter your Email ID :")
+    passw = input("Create a password :")
+    sql1 = "select * from user_login;"
+    cursor.execute(sql1)
+    for i in cursor:
+        l.append(i)
 
-def user_menu_1():
-    print("""=================User Menu 1==================
-1. Search flights
-2. Check your bookings
-3. Exit""")
-    choice = int(input("Enter your choice:"))
-    if choice == 1: user_search()
-    elif choice == 2: user_mybookings()
-    else: exit()
+    if (Uid, passw) not in l:
+        L = [Uid, passw]
+        data = (L)
+        sql2 = "insert into user_login values(%s,%s);"
+        cursor.execute(sql2, data)
+        mydb.commit()
+        print("Account successfully created")
+        main_menu()
+    else:
+        print("Account already exists")
+        main_menu()
+
+
+def user_menu1():
+    print("""===================User Menu===================
+1. Search
+2. My bookings
+3. Exit
+""")
+    ch = int(input("Enter your choice:"))
+
+    if ch == 1:
+        user_search()
+
+    elif ch == 2:
+        user_mybookings()
+
+    else:
+        main_menu()
+
 
 def user_search():
     # for asking and searching the info of flights
-    source = input("Enter source : ").title
-    dest = input("Enter destination : ").title
-    sql = "select * from flights"
-    cursor.execute(sql)
-    rec = cursor.fetchall()
-    print("Flight no.",'\t',"Flight Name",'\t',"Source",'\t',"Desination",'\t',"Ticket Fare")
-    for i in rec:
-        if source and dest in i:
-            print(i[0],'\t',i[1],'\t',i[2],'\t',i[3],'\t',i[4])
+    L = []
+    source = input("Enter source :").title()
+    destination = input("Enter destination :").title()
+    sql = "select * from flights where Source = %s and Destination = %s;"
+    data = (source, destination)
+    cursor.execute(sql, data)
+    for i in cursor:
+        L.append(i)
+    header = ["Flight no.", "Flight Name", "Source", "Desination", "Ticket Fare"]
+    print(tabulate(L, headers='header'))
     user_confirm()
 
-def user_confirm():
-    choice = input("Do you want to finalize/continue your booking?<Y/N> : ").upper()
-    if choice == 'Y': user_data()
-    else: exit()
 
-def user_allotment(n): # n = tickets_qty
+def user_confirm():
+    ch = input("Do you want to continue with your booking? (Y/N):").upper()
+    if ch == 'Y':
+        user_data()
+    else:
+        main_menu()
+
+
+def seat_no(n, fn):  # n = tickets_qty # flight no = fn
     import random
-    L = []
-    rows = ['A','B','C','D','E','F']
-    for i in range(1,n+1):
-        while True:
-            x = str(random.randint(1,38))
-            y = random.choice(rows)
-            seat = str(x + y)
-            if seat not in L:
-                L.append(seat)
-                break
-    print("Your seat numbers : ")
-    for j in L: print(j, end='')
+    dict = {}
+    count = 0
+    sql = "select Flight_No,Seat_No from bookings"
+    cursor.execute(sql)
+    rec = cursor.fetchall()
+    for i in rec:
+        count += 1
+    for i in rec:
+        for j in range(1, count + 1):
+            dict[j] = [i[0], i[1]]  # makes {'1':['fno.1','23A 3B 2C'],'2':['fno.2','3D 5F 7B']}
+
+    rows = ['A', 'B', 'C', 'D', 'E', 'F']
+    flag = 0
+    while flag == 0:
+        L1 = []
+        for i in range(1, n + 1):
+            while True:
+                x = str(random.randint(1, 38))
+                y = str(random.choice(rows))
+                seat = str(x + y)
+                if seat not in L1:
+                    L1.append(seat)
+                    break
+                else:
+                    continue
+
+        for j in dict.values():
+            if j[0] == fn:
+                L2 = j[1].split()
+                for m in L1:
+                    if m in L2:
+                        flag = 0
+
+        else:
+            flag += 1
+
+    nos = str(' '.join(L1))
+    return nos
+
 
 def change_password():
     flag = 0
     while flag == 0:
-        name = input("Enter username : ")
-        old_passwd= input("Enter your old password : ")
+        name = input("Enter username :")
+        old_passw = input("Enter your old password :")
         sql = 'select * from user_login'
         cursor.execute(sql)
         rec = cursor.fetchall()
         for i in rec:
-            if i == [name, old_passwd]:
+            if i == [name, passw]:
                 print("Access granted")
                 flag = 1
-            else :
-                print("Wrong username or password has been entered!")
-                repeat = input("Want to try again?<Y/N> : ").upper()
-                if repeat == 'Y':
+
+
+            else:
+                print("Wrong username or password")
+                ch = input("Want to try again? (Y/N):").upper
+                if ch == 'Y':
                     flag = 0
                 else:
                     flag = 2
+
     if flag == 1:
         new_passw = input("Enter new password :")
         sql = "Update user_login set password = %s where EmailID = %s"
-        data = ([new_passw, name])
+        L = [new_passw, name]
+        data = (L)
         cursor.execute(sql, data)
         mydb.commit()
-    elif flag == 2: exit()
-    else: exit()
 
-#Rade section End--------------------------------------------------------------------------------------
+    else:
+        main_menu()
+
