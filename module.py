@@ -6,7 +6,7 @@ cursor = mydb.cursor()
 
 #keigans section start-----------------------------------------------------------------------------
 def main_menu():
-    print("""==============Main Menu=============
+    print("""================Main Menu================
 1. Enter Admin Interface
 2. Enter User Interface
 3. Exit""")
@@ -50,7 +50,7 @@ def admin_menu():
         else: break
 
 def admin_choice_add():
-    print("""=============Admin Choice Add==============
+    print("""==============Admin Choice Add==============
 1. Add flights
 2. Add cabin crew
 3. Add staff
@@ -111,7 +111,7 @@ def admin_choice_add():
         else: exit()
 
 def admin_choice_update():
-    print("""=================Admin Choice Update===============
+    print("""=================Admin Choice Update=================
 1. modify cabin crew flight number, salary
 2. modify staff salary
 3. modify security gate number, salary
@@ -157,7 +157,7 @@ def admin_choice_update():
         else: break
 
 def admin_choice_display():
-    print("""================Admin Menu Display=============
+    print("""================Admin Menu Display================
 1. Display Flights table.
 2. Display Cabin Crew table.
 3. Display Staff table.
@@ -186,7 +186,7 @@ def admin_choice_display():
         else: break
 
 def admin_choice_delete():
-    print("""================Admin Menu Display=============
+    print("""================Admin Menu Display================
 1. Delete from Flights table.
 2. Delete from Cabin Crew table.
 3. Delete from Staff table.
@@ -314,7 +314,7 @@ def seat_no():
 
 def user_invoice():
     print("""
-    ******** INVOICE ********
+    ================ INVOICE ================
     Name                : %s
 
     Phone               : %s
@@ -388,7 +388,7 @@ def user_signup():
     user_access()
 
 def user_menu_1():
-    print("""=================User Menu 1==================
+    print("""================User Menu================
 1. Search flights
 2. Check your bookings
 3. Exit""")

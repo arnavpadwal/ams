@@ -72,6 +72,12 @@ def seat_no():
                 break
             break
 
+def user_bookings():
+    print("""================ Bookings ================
+    """)
+
+
+
 
 def user_invoice():  # USE TABULATE HERE
     invoice_details_lst = [name, phone, email_id, booking_id, source, destination, flight_no, ticket_qty, seat_no, fare]
