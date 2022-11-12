@@ -1,5 +1,5 @@
 
-create table flights(FlightNo varchar(20) Primary Key, Company varchar(20), Source varchar(40), Destination varchar(40));
+create table flights(FlightNo varchar(20) Primary Key, Company varchar(20), Source varchar(40), Destination varchar(40), Fare int);
 
 import random
 import mysql.connector
