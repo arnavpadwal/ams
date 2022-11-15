@@ -58,11 +58,10 @@ def randomTimeRange():
 #print(randomTimeRange()))
 
 fst_names = ["Gage", "Gisselle", "Javion", "Aniya", "Keira", "Joseph""Brice", "Dayanara", "Quinn", "Camryn", "Carly",
-             "Armani", "Amy", "Alondra", "Rachel", "Kylee", "Lily", "Diego", "Allan", "River", "Trey", "Jillian",
-             "Darren"]
+"Armani", "Amy", "Alondra", "Rachel", "Kylee", "Lily", "Diego", "Allan", "River", "Trey", "Jillian","Darren"]
 lst_names = ["Beasley", "Delgado", "Stephenson", "Gilbert", "Hubbard", "Garrett", "Farley", "Lutz", "Pittman", "Woods",
-             "Leon", "Martinez", "Hart", "Montes", "Rodgers", "Foley", "Nguyen", "Hickman", "Larsen", "Atkins",
-             "Miranda", "Blair", "Nunez", "Khan"]
+"Leon", "Martinez", "Hart", "Montes", "Rodgers", "Foley", "Nguyen", "Hickman", "Larsen", "Atkins",
+"Miranda", "Blair", "Nunez", "Khan"]
 emp_dict = {"PID": "Pilot", "AID": "Attendant"}
 company = ["EA", "LA", "IA", "SA"]
 sd = ["Mumbai", "Delhi", "Kolkata", "Chennai", "Panji", "Ahmedabad", "Pune", "Kanpur", "Guwahati", "Bengaluru"]
@@ -112,7 +111,7 @@ while i <= 500:
             company_name = flt_companies[j]
 
     price_dict = {"mumbai": 46, "delhi": 50, "kolkata": 60, "chennai": 70, "panji": 45,
-                  "ahmedabad": 38, "pune": 55, "kanpur": 65, "guwahati": 75, "bengaluru": 40}
+    "ahmedabad": 38, "pune": 55, "kanpur": 65, "guwahati": 75, "bengaluru": 40}
     ticket_fare = price_dict[source.lower()] * price_dict[dest.lower()]
     fare = {"EA": ticket_fare * 1.15, "LA": ticket_fare * 1.09, "IA": ticket_fare * 1.05, "SA": ticket_fare * 1.07}
     ticket = int(fare[s])

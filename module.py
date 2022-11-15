@@ -260,13 +260,6 @@ def admin_choice_search():
 
 #padwal section START--------------------------------------------------------------------------------
 
-def price_calc():
-    global fare
-    price_dict = {"mumbai": 46, "delhi": 50, "kolkata": 60, "chennai": 70, "panji": 45,
-    "ahmedabad": 38, "pune": 55, "kanpur": 65, "guwahati": 75, "bengaluru": 40}
-    ticket_fare = price_dict[source.lower()] * price_dict[destination.lower()] * ticket_qty
-    fare = {"EA":ticket_fare*1.15 , "LA":ticket_fare*1.09 , "IA":ticket_fare*1.05 , "SA":ticket_fare*1.07 }
-
 def booking_id():
     global b_id
     while True:
@@ -295,11 +288,20 @@ def flight_no():
 
 def user_details():
     global phone, ticket_qty, booking_date, flight_date, name
-    name = input("Enter your name: ")
+    name = input("\nEnter your name: ")
     phone = int(input("\nEnter phone number: "))
     ticket_qty = int(input("\nEnter the number of tickets to be booked: "))
     booking_date = datetime.date.today()
     flight_date = booking_date + datetime.timedelta(days=3)
+
+def price_calc():
+    global fare
+    price_dict = {"mumbai": 46, "delhi": 50, "kolkata": 60, "chennai": 70, "panji": 45,
+    "ahmedabad": 38, "pune": 55, "kanpur": 65, "guwahati": 75, "bengaluru": 40}
+    ticket_fare = price_dict[source.lower()] * price_dict[destination.lower()] * ticket_qty
+    fare_dict = {"EA":int(ticket_fare*1.15) , "LA":int(ticket_fare*1.09) , "IA":int(ticket_fare*1.05) ,
+    "SA":int(ticket_fare*1.07)}
+    fare = fare_dict[flt_no[0:2]]
 
 def seat_no(n, fn):  # n = tickets_qty # flight no = fn
     global s_no
@@ -337,21 +339,32 @@ def seat_no(n, fn):  # n = tickets_qty # flight no = fn
             flag += 1
     s_no = str(' '.join(L1))
 
-#def user_bookings():
-    #print("""================ Bookings ================
-    #""")
+def user_bookings():
+    print("""================ My Bookings ================
+    """)
+    sql = "select * from bookings where Email_ID = '%s'"%(email_id,)
+    cursor.execute(sql)
+    lst = cursor.fetchall()
+    if lst == []:
+        print("You haven't booked any tickets yet!")
+        user_menu1()
+    else:
+        print(tabulate(lst, headers = ["Booking_ID","Name","Email_ID","Booking_Date","Flight_Date","Source",
+        "Destination","Flight No","Seat No","Company Name","Tickets QTY","Total Fare"], tablefmt = 'fancy_grid'))
 
 def user_invoice():
-    invoice_details_lst = [name, phone, email_id, b_id, source, destination, flight_no, ticket_qty, s_no, fare]
-    header = ["Name", "Phone", "Email ID", "Booking ID", "Source", "Destination", "Flight No", "Ticket QTY", "Seat No", "Fare"]
-    print(tabulate(invoice_details_lst, headers = header, tablefmt = 'fancy_grid'))
+    invoice_details_lst = [name, str(phone), email_id, str(b_id), source, destination, flt_no, str(ticket_qty),
+    s_no, str(fare)]
+    print(invoice_details_lst)
+    print(tabulate(invoice_details_lst, headers = ["Name", "Phone", "Email ID", "Booking ID", "Source",
+    "Destination", "Flight No", "Ticket QTY", "Seat No", "Fare"], tablefmt = 'fancy_grid'))
 
 def save_to_bookings():
-    query = "insert into bookings values(%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%s,%s,)" % (
+    query = "insert into bookings values(%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%s,%s)" % (
         b_id, name, email_id, booking_date, flight_date, source, destination, flt_no, s_no, company_name,
         ticket_qty, fare)
     cursor.execute(query)
-    #mydb.commit()
+    mydb.commit()
     print(cursor.fetchall())
 
 #padwal section END-------------------------------------------------------------------------------------
