@@ -280,27 +280,19 @@ def booking_id():
         break
 
 def flight_no():
-    flt_companies = {"EA": "Emirate", "LA": "Lufthansa", "IA": "Indigo", "SA": "SpiceJet"}
-    global flt_no
+    sql="select FlightNo from flights"
+    cursor.execute(sql)
     flt_no = input("\nEnter flight number of your choice: ").upper()
-    # check flight number and allot company name accordingly
-    flt_codes = flt_companies.keys()
-    for i in flt_codes:
-        if i == flt_no[0:2]:
-            global company_name
-            company_name = flt_companies[i]
-            is_valid = True
-            break
-
+    flt_no_list = []
+    for i in cursor:
+        flt_no_list.append(i[0])
+    if flt_no not in flt_no_list:
+        print("\nInvalid flight number, enter again.")
+        flight_no()
+        
 def user_details():
     global phone, ticket_qty, booking_date, flight_date
-    # user input
-    print("\nEnter the following details to proceed with the booking: ")
     phone = int(input("\nEnter phone number: "))
-    is_valid = False
-    while is_valid == False:
-        print("\nInvalid flight number, enter again:")
-        flight_no()
     ticket_qty = int(input("\nEnter the number of tickets to be booked: "))
     booking_date = datetime.date.today()
     flight_date = booking_date + datetime.timedelta(days=3)
@@ -445,11 +437,11 @@ def user_search():
 
 def user_confirm():
     ch = input("Do you want to continue with your booking? (y/n):").upper()
-    if ch == 'Y': 
+    if ch == 'Y':
         flight_no()
         user_details()
         booking_id()
-    else: user_menu()
+    else: user_menu1()
 
 
 def seat_no(n, fn):  # n = tickets_qty # flight no = fn
