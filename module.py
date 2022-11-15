@@ -339,33 +339,75 @@ def seat_no(n, fn):  # n = tickets_qty # flight no = fn
             flag += 1
     s_no = str(' '.join(L1))
 
+def update_booking_details():
+    choice = input("""Which field to update?
+    1. Name
+    2. Phone Number
+    
+    Enter choice <1/2> : """)
+    if choice == 1:
+        name = int(input("\nEnter new name : "))
+        sql = "update bookings set Name = '%s' where Booking_ID = '%s'"%(name,b_id)
+        cursor.execute(sql)
+        mydb.commit()
+        print("\nName updated successfully!")
+        user_menu1()
+    elif choice == 2:
+        phone = int(input("\nEnter new phone number : "))
+        sql = "update bookings set Phone_No = '%s' where Booking_ID = '%s'"%(phone, b_id)
+        cursor.execute(sql)
+        mydb.commit()
+        print("\nPhone number updated successfully!")
+        user_menu1()
+
+def display_bookings():
+    print(tabulate([["Booking_ID",b_id],["Name",name],["Email_ID",email_id],["Phone_No", phone],
+    ["Booking_Date",booking_date],["Flight_Date",flight_date],["Source",source],
+    ["Destination",destination],["Flight No",flt_no],["Seat No",s_no],["Company Name",company_name],
+    ["Tickets QTY",ticket_qty],["Total Fare",fare]]),tablefmt = 'fancy_grid')
+    user_menu1()
+
+def cancel_booking():
+    choice = input("""This action cannot be undone! Do you want to proceed? <yes/no> : """).lower()
+    if choice == 'yes':
+        sql = "delete from bookings where Booking_ID = '%s'"%(b_id,)
+        cursor.execute(sql)
+        mydb.commit()
+        print("\nBooking cancelled successfully!")
+        user_menu1()
+
 def user_bookings():
-    print("""================ My Bookings ================
-    """)
     sql = "select * from bookings where Email_ID = '%s'"%(email_id,)
     cursor.execute(sql)
     lst = cursor.fetchall()
     if lst == []:
-        print("You haven't booked any tickets yet!")
+        print("\nYou haven't booked any tickets yet!")
         user_menu1()
     else:
-        print(tabulate(lst, headers = ["Booking_ID","Name","Email_ID","Booking_Date","Flight_Date","Source",
-        "Destination","Flight No","Seat No","Company Name","Tickets QTY","Total Fare"], tablefmt = 'fancy_grid'))
+        print("""================= My Bookings =================
+        1. Update booking details
+        2. Display bookings
+        3. Cancel booking
+        4. Exit""")
+        choice = input("Enter operation to be performedb <1/2/3/4>: ")
+        if choice == 1: update_booking_details()
+        elif choice == 2: display_bookings()
+        elif choice == 3: cancel_booking()
+        else: user_menu1()
 
 def user_invoice():
-    invoice_details_lst = [name, str(phone), email_id, str(b_id), source, destination, flt_no, str(ticket_qty),
-    s_no, str(fare)]
-    print(invoice_details_lst)
-    print(tabulate(invoice_details_lst, headers = ["Name", "Phone", "Email ID", "Booking ID", "Source",
-    "Destination", "Flight No", "Ticket QTY", "Seat No", "Fare"], tablefmt = 'fancy_grid'))
+    print("""================ Invoice ================
+    """)
+    print(tabulate([["Name",name],["Phone",phone],["Email ID",email_id],["Booking ID",b_id],["Source",source],
+    ["Destination",destination],["Flight No",flt_no],["Ticket QTY",ticket_qty],["Seat No",s_no],
+    ["Fare",fare]], tablefmt = 'fancy_grid'))
 
 def save_to_bookings():
-    query = "insert into bookings values(%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%s,%s)" % (
-        b_id, name, email_id, booking_date, flight_date, source, destination, flt_no, s_no, company_name,
+    query = "insert into bookings values(%s,'%s','%s',%s,'%s','%s','%s','%s','%s','%s','%s',%s,%s)" % (
+        b_id, name, email_id, phone, booking_date, flight_date, source, destination, flt_no, s_no, company_name,
         ticket_qty, fare)
     cursor.execute(query)
     mydb.commit()
-    print(cursor.fetchall())
 
 #padwal section END-------------------------------------------------------------------------------------
 
@@ -449,7 +491,7 @@ def user_menu1():
 
     if ch == 1: user_search()
 
-    #elif ch == 2: user_bookings()
+    elif ch == 2: user_bookings()
 
     else: main_menu()
 
@@ -474,10 +516,11 @@ def user_confirm():
         booking_id()
         flight_no()
         user_details()
-        seat_no(ticket_qty, flt_no)
         price_calc()
+        seat_no(ticket_qty, flt_no)
         user_invoice()
         save_to_bookings()
+
     else: user_menu1()
 
 def change_password():

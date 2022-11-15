@@ -1,7 +1,8 @@
-  create table bookings(
+create table bookings(
   Booking_ID int primary key,
   Name varchar(20) not null,
   Email_ID varchar(20) not null,
+  Phone_No int not null,
   Booking_Date date not null,
   Flight_Date date not null,
   Source varchar(20) not null,
