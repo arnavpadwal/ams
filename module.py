@@ -263,7 +263,7 @@ def admin_choice_search():
 def price_calc():
     global fare
     price_dict = {"mumbai": 46, "delhi": 50, "kolkata": 60, "chennai": 70, "panji": 45,
-                  "ahmedabad": 38, "pune": 55, "kanpur": 65, "guwahati": 75, "bengaluru": 40}
+    "ahmedabad": 38, "pune": 55, "kanpur": 65, "guwahati": 75, "bengaluru": 40}
     ticket_fare = price_dict[source.lower()] * price_dict[destination.lower()] * ticket_qty
     fare = {"EA":ticket_fare*1.15 , "LA":ticket_fare*1.09 , "IA":ticket_fare*1.05 , "SA":ticket_fare*1.07 }
 
@@ -280,8 +280,10 @@ def booking_id():
         break
 
 def flight_no():
+    flt_codes = {"EA":"Emirate","LA":"Lufthansa","IA":"Indigo","SA":"SpiceJet"}
     sql="select FlightNo from flights"
     cursor.execute(sql)
+    global flt_no, company_name
     flt_no = input("\nEnter flight number of your choice: ").upper()
     flt_no_list = []
     for i in cursor:
@@ -289,52 +291,68 @@ def flight_no():
     if flt_no not in flt_no_list:
         print("\nInvalid flight number, enter again.")
         flight_no()
-        
+    company_name = flt_codes[flt_no[0:2]]
+
 def user_details():
-    global phone, ticket_qty, booking_date, flight_date
+    global phone, ticket_qty, booking_date, flight_date, name
+    name = input("Enter your name: ")
     phone = int(input("\nEnter phone number: "))
     ticket_qty = int(input("\nEnter the number of tickets to be booked: "))
     booking_date = datetime.date.today()
     flight_date = booking_date + datetime.timedelta(days=3)
 
-def user_bookings():
-    print("""================ Bookings ================
-    """)
+def seat_no(n, fn):  # n = tickets_qty # flight no = fn
+    global s_no
+    dict = {}
+    count = 0
+    sql = "select Flight_No,Seat_No from bookings"
+    cursor.execute(sql)
+    rec = cursor.fetchall()
+    for i in rec:
+        count += 1
+    for i in rec:
+        for j in range(1, count + 1):
+            dict[j] = [i[0], i[1]]  # makes {'1':['fno.1','23A 3B 2C'],'2':['fno.2','3D 5F 7B']}
+    rows = ['A', 'B', 'C', 'D', 'E', 'F']
+    flag = 0
+    while flag == 0:
+        L1 = []
+        for i in range(1, n + 1):
+            while True:
+                x = str(random.randint(1, 38))
+                y = str(random.choice(rows))
+                seat = str(x + y)
+                if seat not in L1:
+                    L1.append(seat)
+                    break
+                else:
+                    continue
+        for j in dict.values():
+            if j[0] == fn:
+                L2 = j[1].split()
+                for m in L1:
+                    if m in L2:
+                        flag = 0
+        else:
+            flag += 1
+    s_no = str(' '.join(L1))
 
-def user_invoice():  # USE TABULATE HERE
-    invoice_details_lst = [name, phone, email_id, booking_id, source, destination, flight_no, ticket_qty, seat_no, fare]
-    invoice_table = tabulate(invoice_details_lst)
+#def user_bookings():
+    #print("""================ Bookings ================
+    #""")
 
-    print("""
-    ******** INVOICE ********
-    Name                : %s
-
-    Phone               : %s
-
-    Email ID            : %s
-
-    Booking ID          : %s
-
-    Source              : %s
-
-    Destination         : %s
-
-    Flight No           : %s
-
-    Number of Tickets   : %s
-
-    Seat_No             : %s
-
-    Total_Fare          : %s
-
-    """ % (name, phone, email_id, booking_id, source, destination, flight_no, ticket_qty, seat_no, fare))
+def user_invoice():
+    invoice_details_lst = [name, phone, email_id, b_id, source, destination, flight_no, ticket_qty, s_no, fare]
+    header = ["Name", "Phone", "Email ID", "Booking ID", "Source", "Destination", "Flight No", "Ticket QTY", "Seat No", "Fare"]
+    print(tabulate(invoice_details_lst, headers = header, tablefmt = 'fancy_grid'))
 
 def save_to_bookings():
     query = "insert into bookings values(%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%s,%s,)" % (
         b_id, name, email_id, booking_date, flight_date, source, destination, flt_no, s_no, company_name,
         ticket_qty, fare)
     cursor.execute(query)
-    mydb.commit()
+    #mydb.commit()
+    print(cursor.fetchall())
 
 #padwal section END-------------------------------------------------------------------------------------
 
@@ -356,7 +374,8 @@ def user_login():
     flag = 0
     L = []
     while flag == 0:
-        name = input("Enter your username :")
+        global email_id, passw
+        email_id = input("Enter your email id:")
         passw = input("Enter your password :")
 
         sql = 'select * from user_login;'
@@ -364,7 +383,7 @@ def user_login():
         for i in cursor:
             L.append(i)
 
-        if (name,passw) in L:
+        if (email_id,passw) in L:
             print("Access granted")
             flag = 1
 
@@ -417,13 +436,14 @@ def user_menu1():
 
     if ch == 1: user_search()
 
-    elif ch == 2: user_mybookings()
+    #elif ch == 2: user_bookings()
 
     else: main_menu()
 
 def user_search():
     # for asking and searching the info of flights
     L = []
+    global source, destination
     source = input("Enter source :").title()
     destination = input("Enter destination :").title()
     sql = "select * from flights where Source = %s and Destination = %s;"
@@ -436,55 +456,16 @@ def user_search():
     user_confirm()
 
 def user_confirm():
-    ch = input("Do you want to continue with your booking? (y/n):").upper()
+    ch = input("Do you want to continue with your booking? (y/n): ").upper()
     if ch == 'Y':
+        booking_id()
         flight_no()
         user_details()
-        booking_id()
+        seat_no(ticket_qty, flt_no)
+        price_calc()
+        user_invoice()
+        save_to_bookings()
     else: user_menu1()
-
-
-def seat_no(n, fn):  # n = tickets_qty # flight no = fn
-    import random
-    dict = {}
-    count = 0
-    sql = "select Flight_No,Seat_No from bookings"
-    cursor.execute(sql)
-    rec = cursor.fetchall()
-    for i in rec:
-        count += 1
-    for i in rec:
-        for j in range(1, count + 1):
-            dict[j] = [i[0], i[1]]  # makes {'1':['fno.1','23A 3B 2C'],'2':['fno.2','3D 5F 7B']}
-
-    rows = ['A', 'B', 'C', 'D', 'E', 'F']
-    flag = 0
-    while flag == 0:
-        L1 = []
-        for i in range(1, n + 1):
-            while True:
-                x = str(random.randint(1, 38))
-                y = str(random.choice(rows))
-                seat = str(x + y)
-                if seat not in L1:
-                    L1.append(seat)
-                    break
-                else:
-                    continue
-
-        for j in dict.values():
-            if j[0] == fn:
-                L2 = j[1].split()
-                for m in L1:
-                    if m in L2:
-                        flag = 0
-
-        else:
-            flag += 1
-
-    nos = str(' '.join(L1))
-    return nos
-
 
 def change_password():
     flag = 0
