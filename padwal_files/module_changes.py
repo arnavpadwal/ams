@@ -340,7 +340,7 @@ def seat_no(n, fn):  # n = tickets_qty # flight no = fn
     s_no = str(' '.join(L1))
 
 def display_bookings():
-    sql1 = "select * from bookings where Email_ID = '%s' and Flight_Date > '%s'order by Flight_Date desc"%('test@gmail.com','2022-11-16')
+    sql1 = "select * from bookings where Email_ID = '%s' and Flight_Date > '%s' order by Flight_Date desc"%('test@gmail.com','2022-11-16')
     cursor.execute(sql1)
     lst = []
     for i in cursor.fetchall():
