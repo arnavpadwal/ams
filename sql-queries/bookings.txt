@@ -15,3 +15,20 @@ create table bookings(
 );
 
 
+create table bookings(
+  Booking_ID int(6) primary key,
+  Name varchar(40) not null,
+  Email_ID varchar(20) not null,
+  Phone_No varchar(10) not null,
+  Booking_Date date not null,
+  Flight_Date date not null,
+  Source varchar(10) not null,
+  Destination varchar(10) not null,
+  Flight_No varchar(60) not null,
+  Seat_No varchar(16) not null,
+  Company_Name varchar(10) not null,
+  Tickets_QTY int(2) not null,
+  Total_Fare int(6) not null
+);
+insert into bookings values(765849,'Elon Musk','test@gmail.com','8585858585','2022-11-16','2022-11-19','Mumbai','Delhi','SA9399','32B 16C','SpiceJet',2,4515);
+insert into bookings values(765859,'Elon Musk','test@gmail.com','8585858585','2022-11-17','2022-11-20','Mumbai','Delhi','SA9399','32C 16D','SpiceJet',2,4515);
