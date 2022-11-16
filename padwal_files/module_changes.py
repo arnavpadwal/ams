@@ -340,7 +340,7 @@ def seat_no(n, fn):  # n = tickets_qty # flight no = fn
     s_no = str(' '.join(L1))
 
 def display_bookings():
-    sql1 = "select * from bookings where Email_ID = '%s' and Flight_Date > '%s'order by Flight_Date desc"%('test@gmail.com','2022')
+    sql1 = "select * from bookings where Email_ID = '%s' and Flight_Date > '%s'order by Flight_Date desc"%('test@gmail.com','2022-11-16')
     cursor.execute(sql1)
     lst = []
     for i in cursor.fetchall():
@@ -348,24 +348,24 @@ def display_bookings():
     header = ["Book ID","Name","Email ID","Phone","Book Date","Flt Date","Source","Dest","Flt No","Seat No","Company","QTY","Fare"]
     if lst == []:
         print("\nBookings History\n")
-        print(tabulate(lst, headers = header, tablefmt = 'fancy_grid', colalign = 'centre'))
+        sql2 = "select * from bookings where Email_ID = '%s' order by Flight_Date desc"%('test@gmail.com',)
+        cursor.execute(sql2)
+        lst2 = []
+        for i in cursor.fetchall():
+            lst2.append(i)
+            print(tabulate(lst2, headers = header, tablefmt = 'fancy_grid', colalign = 'centre'))
     else:
-        print()
+        print("\nUpcoming Flights\n")
+        print(tabulate(lst, headers = header, tablefmt = 'fancy_grid', colalign = 'centre'))
+        print("\nBookings History\n")
+        sql2 = "select * from bookings where Email_ID = '%s' order by Flight_Date desc"%('test@gmail.com',)
+        cursor.execute(sql2)
+        lst2 = []
+        for i in cursor.fetchall():
+            lst2.append(i)
+            print(tabulate(lst2, headers = header, tablefmt = 'fancy_grid', colalign = 'centre'))
+
 display_bookings()
-'''bid_lst = 
-    booking_id int(6) primary key,
-    Name varchar(40) not null,
-    Email_ID varchar(20) not null,
-    Phone_No varchar(10) not null,
-    Booking_Date date not null,
-    Flight_Date date not null,
-    Source varchar(10) not null,
-    Destination varchar(10) not null,
-    Flight_No varchar(60) not null,
-    Seat_No varchar(16) not null,
-    Company_Name varchar(10) not null,
-    Tickets_QTY int(2) not null,
-    Total_Fare int(6) not null'''
 
 
 
