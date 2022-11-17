@@ -133,7 +133,7 @@ def admin_choice_update():
                     data = ([sal, emp_id])
                     cursor.execute(sql, data)
                     mydb.commit()
-                else: admin_choice_modify()
+                else: admin_choice_update()
                 repeat = input("Do you wish to modify more records? : ").upper()
                 if repeat == 'N': break
         elif choice == '2':
@@ -151,7 +151,7 @@ def admin_choice_update():
                 data = ([sal, emp_id])
                 cursor.execute(sql, data)
                 mydb.commit()
-        elif choice == '4': admin_choice_modify()
+        elif choice == '4': admin_choice_update()
         else: break
 
 def admin_choice_display():
