@@ -277,10 +277,20 @@ def flight_no():
         flight_no()
     company_name = flt_codes[flt_no[0:2]]
 
+def phone_num():
+    global phone
+    while True:
+        phone = input("\nEnter phone number: ")
+        if len(phone) != 10:
+            print("\nInvalid phone number, enter again.")
+            phone_num()
+            break
+        else: break
+
 def user_details():
-    global phone, ticket_qty, booking_date, flight_date, name
+    global ticket_qty, booking_date, flight_date, name
     name = input("\nEnter your name: ")
-    phone = int(input("\nEnter phone number: "))
+    phone_num()
     ticket_qty = int(input("\nEnter the number of tickets to be booked: "))
     booking_date = datetime.date.today()
     flight_date = booking_date + datetime.timedelta(days=3)
@@ -331,7 +341,7 @@ def seat_no(n, fn):  # n = tickets_qty # flight no = fn
     s_no = str(' '.join(L1))
 
 def display_bookings():
-    sql1 = "select * from bookings where Email_ID = '%s' and Flight_Date > '%s' order by Flight_Date asc"%('test@gmail.com','2022-11-16')
+    sql1 = "select * from bookings where Email_ID = '%s' and Flight_Date > '%s' order by Flight_Date asc"%(email_id,datetime.date.today())
     cursor.execute(sql1)
     lst = []
     for i in cursor.fetchall():
@@ -339,7 +349,7 @@ def display_bookings():
     header = ["Book ID","Name","Email ID","Phone","Book Date","Flt Date","Source","Dest","Flt No","Seat No","Company","QTY","Fare"]
     if lst == []:
         print("\nBookings History\n")
-        sql2 = "select * from bookings where Email_ID = '%s' order by Flight_Date desc"%('test@gmail.com',)
+        sql2 = "select * from bookings where Email_ID = '%s' order by Flight_Date desc"%(email_id,)
         cursor.execute(sql2)
         lst2 = []
         for i in cursor.fetchall():
@@ -349,12 +359,16 @@ def display_bookings():
         print("\nUpcoming Flights\n")
         print(tabulate(lst, headers = header, tablefmt = 'fancy_grid', colalign = 'centre'))
         print("\nBookings History\n")
-        sql2 = "select * from bookings where Email_ID = '%s' order by Flight_Date desc"%('test@gmail.com',)
+        sql2 = "select * from bookings where Email_ID = '%s'and Flight_date < '%s' order by Flight_Date desc"%(email_id,datetime.date.today())
         cursor.execute(sql2)
         lst2 = []
         for i in cursor.fetchall():
-            lst2.append(i)
-        print(tabulate(lst2, headers = header, tablefmt = 'fancy_grid', colalign = 'centre'))
+                lst2.append(i)
+        if lst2 == []:
+            print("\nYou have no past bookings.")
+        else:
+            print(tabulate(lst2, headers = header, tablefmt = 'fancy_grid', colalign = 'centre'))
+    user_menu1()
 
 def cancel_booking():
     print("""
@@ -448,7 +462,7 @@ def user_login():
             L.append(i)
 
         if (email_id,passw) in L:
-            print("\nAccess granted")
+            print("\nAccess granted\n")
             flag = 1
 
         else:
@@ -489,7 +503,8 @@ def user_signup():
         user_access()
 
 def user_menu1():
-    print("""===================User Menu===================
+    print("""
+===================User Menu===================
 1. Search
 2. My Account
 3. Exit
@@ -532,7 +547,6 @@ def user_confirm():
         seat_no(ticket_qty, flt_no)
         user_invoice()
         save_to_bookings()
-
     else: user_menu1()
 
 def change_password():
