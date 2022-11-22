@@ -273,10 +273,8 @@ def admin_choice_search():
             cursor.execute(sql, data)
             print(cursor.fetchall())
             admin_menu()
-            
         elif choice == '5': admin_menu()
-
-        else: exit()'''
+        else: exit()
 
 def booking_id():
     global b_id
