@@ -249,7 +249,7 @@ def admin_choice_search():
             srch_flt_no = input("Enter flight id to be searched : ").upper()
         elif choice == '5': admin_menu()
 
-        else: exit()
+        else: exit()'''
 
 def booking_id():
     global b_id
