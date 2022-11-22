@@ -225,18 +225,20 @@ def admin_choice_delete():
         else: exit()
 
 def admin_choice_search():
-    print("""=================Admin Choice Search=================
+    print("""
+    =================Admin Choice Search=================
 1. Search Flights data
 2. Search Cabin crew data
 3. Search Staff data
 4. Search Security data
 5. Go back
-6. Exit""")
+6. Exit
+""")
     choice = input("Enter the operation to be performed : ")
     while choice != '0':
         if choice == '1':
-            srch_flt_no = input("Enter flight id to be searched : ").upper()
-            sql = "select * from flights where FlightNo = '%s'"
+            srch_flt_no = input("\nEnter flight id to be searched : ").upper()
+            sql = "select * from flights where FlightNo = %s"
             data = (srch_flt_no,)
             cursor.execute(sql,data)
             lst = []
@@ -245,10 +247,11 @@ def admin_choice_search():
             header = ["Flt No","Company","Source","Destination","Fare","Time"]
             if lst == []:
                 print("\nFlight ID not found!\n")
-                admin_menu()
+                admin_choice_search()
             else: 
+                print()
                 print(tabulate(lst, headers = header, tablefmt = 'fancy_grid', colalign = 'centre'))
-                admin_menu()
+                admin_choice_search()
         elif choice == '2':
             srch_flt_no = input("Enter flight id to be searched : ").upper()
         elif choice == '3':
@@ -258,7 +261,7 @@ def admin_choice_search():
             
         elif choice == '5': admin_menu()
 
-        else: exit()
+        else: exit()'''
 
 def booking_id():
     global b_id
