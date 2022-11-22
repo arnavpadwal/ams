@@ -180,7 +180,7 @@ def admin_choice_display():
             cursor.execute("Select * from security")
             for i in cursor: print(i)
             admin_menu()
-        elif choice == '5': admin_menu_choice()
+        elif choice == '5': admin_menu()
         else: break
 
 def admin_choice_delete():
@@ -240,7 +240,7 @@ def admin_choice_search():
             srch_flt_no = input("\nEnter flight id to be searched : ").upper()
             sql = "select * from flights where FlightNo = %s"
             data = (srch_flt_no,)
-            cursor.execute(sql,data)
+            cursor.execute(sql, data)
             lst = []
             for i in cursor.fetchall():
                 lst.append(i)
@@ -253,11 +253,26 @@ def admin_choice_search():
                 print(tabulate(lst, headers = header, tablefmt = 'fancy_grid', colalign = 'centre'))
                 admin_choice_search()
         elif choice == '2':
-            srch_flt_no = input("Enter flight id to be searched : ").upper()
+            emp_id = input("Enter employee id to be searched : ").upper()
+            sql = "select * from cabin_crew where Emp_ID = %s"
+            data = (emp_id,)
+            cursor.execute(sql, data)
+            print(cursor.fetchall())
+            admin_menu()
         elif choice == '3':
-            srch_flt_no = input("Enter flight id to be searched : ").upper()
+            emp_id = input("Enter employee id to be searched : ").upper()
+            sql = "select * from staff where Emp_ID = %s"
+            data = (emp_id,)
+            cursor.execute(sql, data)
+            print(cursor.fetchall())
+            admin_menu()
         elif choice == '4':
-            srch_flt_no = input("Enter flight id to be searched : ").upper()
+            emp_id = input("Enter employee id to be searched : ").upper()
+            sql = "select * from security where Emp_ID = %s"
+            data = (emp_id,)
+            cursor.execute(sql, data)
+            print(cursor.fetchall())
+            admin_menu()
             
         elif choice == '5': admin_menu()
 
