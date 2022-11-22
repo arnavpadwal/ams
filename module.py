@@ -247,9 +247,17 @@ def admin_choice_search():
             srch_flt_no = input("Enter flight id to be searched : ").upper()
         elif choice == '4':
             srch_flt_no = input("Enter flight id to be searched : ").upper()
+            lst = []
+            for i in cursor.fetchall():
+                lst.append(i)
+            header = ["Book ID","Name","Email ID","Phone","Book Date","Flt Date","Source","Dest","Flt No","Seat No","Company","QTY","Fare"]
+            if lst == []:
+                print("\nBookings History\n")
+                sql2 = "select * from bookings where Email_ID = '%s' order by Flight_Date desc"%(email_id,)
+                cursor.execute(sql2)
         elif choice == '5': admin_menu()
 
-        else: exit()'''
+        else: exit()
 
 def booking_id():
     global b_id
