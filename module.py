@@ -245,8 +245,10 @@ def admin_choice_search():
             header = ["Flt No","Company","Source","Destination","Fare","Time"]
             if lst == []:
                 print("\nFlight ID not found!\n")
+                admin_menu()
+            else: 
                 print(tabulate(lst, headers = header, tablefmt = 'fancy_grid', colalign = 'centre'))
-            admin_menu()
+                admin_menu()
         elif choice == '2':
             emp_id = input("Enter employee id to be searched : ").upper()
             sql = "select * from cabin_crew where Emp_ID = %s"
