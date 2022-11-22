@@ -236,10 +236,16 @@ def admin_choice_search():
     while choice != '0':
         if choice == '1':
             srch_flt_no = input("Enter flight id to be searched : ").upper()
-            sql = "select * from flights where FlightNo = %s"
+            sql = "select * from flights where FlightNo = '%s'"
             data = (srch_flt_no,)
             cursor.execute(sql,data)
-            print(cursor.fetchall())
+            lst = []
+            for i in cursor.fetchall():
+                lst.append(i)
+            header = ["Flt No","Company","Source","Destination","Fare","Time"]
+            if lst == []:
+                print("\nFlight ID not found!\n")
+                print(tabulate(lst, headers = header, tablefmt = 'fancy_grid', colalign = 'centre'))
             admin_menu()
         elif choice == '2':
             srch_flt_no = input("Enter flight id to be searched : ").upper()
@@ -247,14 +253,7 @@ def admin_choice_search():
             srch_flt_no = input("Enter flight id to be searched : ").upper()
         elif choice == '4':
             srch_flt_no = input("Enter flight id to be searched : ").upper()
-            lst = []
-            for i in cursor.fetchall():
-                lst.append(i)
-            header = ["Book ID","Name","Email ID","Phone","Book Date","Flt Date","Source","Dest","Flt No","Seat No","Company","QTY","Fare"]
-            if lst == []:
-                print("\nBookings History\n")
-                sql2 = "select * from bookings where Email_ID = '%s' order by Flight_Date desc"%(email_id,)
-                cursor.execute(sql2)
+            
         elif choice == '5': admin_menu()
 
         else: exit()
