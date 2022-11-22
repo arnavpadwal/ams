@@ -235,18 +235,18 @@ def admin_choice_search():
     choice = input("Enter the operation to be performed : ")
     while choice != '0':
         if choice == '1':
-            srch_flt_no = input("Enter flight id to be searched : ")
+            srch_flt_no = input("Enter flight id to be searched : ").upper()
             sql = "select * from flights where FlightNo = %s"
             data = (srch_flt_no,)
             cursor.execute(sql,data)
             print(cursor.fetchall())
             admin_menu()
         elif choice == '2':
-            srch_flt_no = input("Enter flight id to be searched : ")
+            srch_flt_no = input("Enter flight id to be searched : ").upper()
         elif choice == '3':
-            srch_flt_no = input("Enter flight id to be searched : ")
+            srch_flt_no = input("Enter flight id to be searched : ").upper()
         elif choice == '4':
-            srch_flt_no = input("Enter flight id to be searched : ")
+            srch_flt_no = input("Enter flight id to be searched : ").upper()
         elif choice == '5': admin_menu()
 
         else: exit()
