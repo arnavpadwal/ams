@@ -59,6 +59,8 @@ columns:
     Company
     Source
     Destination
+    Fare
+    Time
 
 table: cabin_crew
 columns:
@@ -72,14 +74,12 @@ table: staff
 columns:
     Emp_ID
     Emp_Name
-    Designation
     Salary
 
 table: security
 columns:
     Emp_ID
     Emp_Name
-    Designation
     Gate_No
     Salary
 

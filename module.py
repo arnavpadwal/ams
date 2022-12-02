@@ -225,8 +225,7 @@ def admin_choice_delete():
         else: exit()
 
 def admin_choice_search():
-    print("""
-    =================Admin Choice Search=================
+    print("""=================Admin Choice Search=================
 1. Search Flights data
 2. Search Cabin crew data
 3. Search Staff data
@@ -244,35 +243,62 @@ def admin_choice_search():
             lst = []
             for i in cursor.fetchall():
                 lst.append(i)
-            header = ["Flt No","Company","Source","Destination","Fare","Time"]
+            header = ["Flt No", "Company", "Source", "Destination", "Fare", "Time"]
             if lst == []:
-                print("\nFlight ID not found!\n")
+                print("Flight ID not found!")
                 admin_choice_search()
             else: 
                 print()
-                print(tabulate(lst, headers = header, tablefmt = 'fancy_grid', colalign = 'centre'))
+                print(tabulate(lst, headers=header, tablefmt='fancy_grid', colalign='centre'))
                 admin_choice_search()
         elif choice == '2':
             emp_id = input("Enter employee id to be searched : ").upper()
             sql = "select * from cabin_crew where Emp_ID = %s"
             data = (emp_id,)
             cursor.execute(sql, data)
-            print(cursor.fetchall())
-            admin_menu()
+            lst = []
+            for i in cursor.fetchall():
+                lst.append(i)
+            header = ["Emp_ID", "Emp_Name", "Designation", "FlightNo", "Salary"]
+            if lst == []:
+                print("Employee ID not found!")
+                admin_choice_search()
+            else:
+                print()
+                print(tabulate(lst, headers=header, tablefmt='fancy_grid', colalign='centre'))
+                admin_choice_search()
         elif choice == '3':
             emp_id = input("Enter employee id to be searched : ").upper()
             sql = "select * from staff where Emp_ID = %s"
             data = (emp_id,)
             cursor.execute(sql, data)
-            print(cursor.fetchall())
-            admin_menu()
+            lst = []
+            for i in cursor.fetchall():
+                lst.append(i)
+            header = ["Emp_ID", "Emp_Name", "Salary"]
+            if lst == []:
+                print("Employee ID not found!")
+                admin_choice_search()
+            else:
+                print()
+                print(tabulate(lst, headers=header, tablefmt='fancy_grid', colalign='centre'))
+                admin_choice_search()
         elif choice == '4':
             emp_id = input("Enter employee id to be searched : ").upper()
             sql = "select * from security where Emp_ID = %s"
             data = (emp_id,)
             cursor.execute(sql, data)
-            print(cursor.fetchall())
-            admin_menu()
+            lst = []
+            for i in cursor.fetchall():
+                lst.append(i)
+            header = ["Emp_ID", "Emp_Name", "Gate_No", "Salary"]
+            if lst == []:
+                print("Employee ID not found!")
+                admin_choice_search()
+            else:
+                print()
+                print(tabulate(lst, headers=header, tablefmt='fancy_grid', colalign='centre'))
+                admin_choice_search()
         elif choice == '5': admin_menu()
         else: exit()
 
