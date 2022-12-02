@@ -14,33 +14,33 @@
 
 8. admin_choice_search(): If choice is search data, this function first gives choice between different tables present in the database according to which it searches data to the respective table as per the choice of admin.
 
-9) booking_id(): It is used for creating the booking ID for the users using the random module. It first creates the booking ID, then checks whether the id is allotted in the bookings table. If it is already allotted, it regenrates the ID till the ID isn't unique.
+9) booking_id(): It is used for generating a booking ID for the users. It generates a booking ID using the random module and checks whether the ID is allotted in the bookings table. If it is already allotted, it regenerates the ID till the ID isn't unique.
 
-10) flight_no() : I
+10) flight_no() : It accepts a flight number from the user (flight numbers are displayed in a table while user performs a search). It checks whether the given flight number is valid and assigns a variable for storing company name of the flight.
 
-11) phone_num() : 
+11) phone_num() : It accepts a 10 digit phone number from the user.
 
-12) user_details() : 
+12) user_details() : It accepts user's name and required ticket quantity. Then it assigns booking date (current date) and flight date (3 days later).
 
-13) price_calc() : 
+13) price_calc() : It calculates the total ticket fare based on the source, destination and ticket quantity entered by the user.
 
-14) seat_no(n, fn) : 
+14) seat_no(n, fn) : It generates unique seat numbers (based on ticket quantity and flight number as parameters) and assigns them. If the seat no is already taken, it generates a new one.
 
-15) display_bookings() : 
+15) display_bookings() : It displays a user's past bookings (booking history) and upcoming flight bookings. (if any)
 
-16) cancel_booking() : 
+16) cancel_booking() : It cancels a booking based on the booking ID provided.
 
-17) my_bookings() : 
+17) my_bookings() : It displays a menu to display or cancel bookings.
 
-18) update_account_details() : 
+18) update_account_details() : It diplays a menu to change account password.
 
-19) user_my_account() : 
+19) user_my_account() : It displays a menu to enter 'My Bookings' or 'Update Account Details' section. 
 
-20) user_invoice() : 
+20) user_invoice() : It displays an invoice table consisting all your current booking info.
 
-21) save_to_bookings() : 
+21) save_to_bookings() : It is a function to commit the booking into the bookings table.
 
-22) user_access() : 
+22) user_access() : It displays a login/signup menu.
 
 23) user_login() : 
 
