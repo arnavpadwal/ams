@@ -1,0 +1,55 @@
+1) main_menu() : The first menu which gives you choice between admin interface and user interface. 
+
+2) admin_access(): This menu asks for username and password from the user and if both are correct provides access to the person or asks the person to enter the valid username or password again.
+
+3) admin_menu(): It gives admin choice between add data, update data, display data, delete data, search data, go back and exit.
+
+4. admin_choice_add(): If choice is add data, this function first gives choice between different tables present in the database according to which it adds data to the respective table as per the choice of admin.
+
+5. admin_choice_update(): If choice is update data, this function first gives choice between different tables present in the database according to which it updates data to the respective table as per the choice of admin.
+
+6. admin_choice_display(): If choice is display data, this function first gives choice between different tables present in the database according to which it displays data to the respective table as per the choice of admin.
+
+7. admin_choice_delete(): If choice is delete data, this function first gives choice between different tables present in the database according to which it deletes data to the respective table as per the choice of admin.
+
+8. admin_choice_search(): If choice is search data, this function first gives choice between different tables present in the database according to which it searches data to the respective table as per the choice of admin.
+
+9) booking_id(): It is used for creating the booking ID for the users using the random module. It first creates the booking ID, then checks whether the id is allotted in the bookings table. If it is already allotted, it regenrates the ID till the ID isn't unique.
+
+10) flight_no() : I
+
+11) phone_num() : 
+
+12) user_details() : 
+
+13) price_calc() : 
+
+14) seat_no(n, fn) : 
+
+15) display_bookings() : 
+
+16) cancel_booking() : 
+
+17) my_bookings() : 
+
+18) update_account_details() : 
+
+19) user_my_account() : 
+
+20) user_invoice() : 
+
+21) save_to_bookings() : 
+
+22) user_access() : 
+
+23) user_login() : 
+
+24) user_signup() : 
+
+25) user_menu1() : 
+
+26) user_search() : 
+
+27) user_confirm() : 
+
+28) change_password() : 
