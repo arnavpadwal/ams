@@ -40,16 +40,16 @@
 
 21) save_to_bookings() : It is a function to commit the booking into the bookings table.
 
-22) user_access() : It displays a login/signup menu.
+22) user_access() : It displays a user login/signup menu.
 
-23) user_login() : 
+23) user_login() : It accepts email ID and password from user and logs into the account. If authentication fails, it asks whether to continue or not.
 
-24) user_signup() : 
+24) user_signup() : It accepts email ID and new password from user and creates a new account. If email ID exists, it displays so.
 
-25) user_menu1() : 
+25) user_menu1() : It displays a menu to enter 'Search' or 'My Account' section.
 
-26) user_search() : 
+26) user_search() : It displays all the locations and then accepts source and destination from the user. It then searches for flights for the given route (backend) and displays a table containing apt data from 'flights' table.
 
-27) user_confirm() : 
+27) user_confirm() : It displays a confirmation dialog. It asks the user whether they wanna continue with the booking process or exit. If yes, the apt functions are called.
 
-28) change_password() : 
+28) change_password() : It is a function to change the account password. It accepts username and old password from user, authenticates it, accepts new password from user and then saves it in the database.
