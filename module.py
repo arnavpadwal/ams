@@ -266,7 +266,7 @@ def admin_choice_search():
             else:
                 print()
                 print(tabulate(lst, headers=header))
-                admin_choice_search()
+                admin_menu()
         elif choice == '3':
             emp_id = input("Enter employee id to be searched : ").upper()
             sql = "select * from staff where Emp_ID = %s"
@@ -342,7 +342,7 @@ def user_details():
     global ticket_qty, booking_date, flight_date, name
     name = input("\nEnter your name: ")
     phone_num()
-    ticket_qty = int(input("\nEnter the number of tickets to be booked: "))
+    ticket_qty = int(input("\nEnter the number of tickets to be booked [max 5] : "))
     booking_date = datetime.date.today()
     flight_date = booking_date + datetime.timedelta(days=3)
 
@@ -429,11 +429,15 @@ You will need your booking id to cancel a booking.
 """)
     ch = input("Do you still wanna cancel booking? <yes/no> : ").lower()
     if ch == 'yes':
-        id = int(input("\nEnter booking id : "))
-        sql = "delete from bookings where Booking_ID = '%s'"%(id,)
+        sql = "select * from bookings where Bookieng_ID = '%s'"%(id,)
         cursor.execute(sql)
-        mydb.commit()
-        print("\nBooking Cancelled Successfully!")
+        r = cursor.fetchall()
+        if r != []:
+            id = int(input("\nEnter booking id : "))
+            sql = "delete from bookings where Booking_ID = '%s'"%(id,)
+            cursor.execute(sql)
+            mydb.commit()
+            print("\nBooking Cancelled Successfully!")
     else: my_bookings()
 
 def my_bookings():
@@ -474,9 +478,9 @@ def user_invoice():
     print("""
 ================ Invoice ================
 """)
-    print(tabulate([["Name",name],["Phone",phone],["Email ID",email_id],["Booking ID",b_id],["Source",source],
-    ["Destination",destination],["Flight No",flt_no],["Ticket QTY",ticket_qty],["Seat No",s_no],
-    ["Fare",fare]], tablefmt = 'fancy_grid'))
+    print(tabulate([["Name", name], ["Phone",phone], ["Email ID", email_id], ["Booking ID",b_id], ["Source",source],
+    ["Destination", destination], ["Flight No",flt_no], ["Ticket QTY", ticket_qty], ["Seat No", s_no],
+    ["Fare", fare]]))
 
 def save_to_bookings():
     query = "insert into bookings values('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (
@@ -492,11 +496,9 @@ def user_access():
 2. Sign up
 3. Exit
 """)
-    ch = int(input("Enter your choice :"))
+    ch = int(input("Enter your choice : "))
     if ch == 1: user_login()
-
     elif ch == 2: user_signup()
-
     else: main_menu()
 
 def user_login():
@@ -504,28 +506,22 @@ def user_login():
     L = []
     while flag == 0:
         global email_id, passw
-        email_id = input("\nEnter your email id:")
-        passw = input("\nEnter your password :")
-
+        email_id = input("\nEnter your email id : ")
+        passw = input("\nEnter your password : ")
         sql = 'select * from user_login;'
         cursor.execute(sql)
         for i in cursor:
             L.append(i)
-
         if (email_id,passw) in L:
             print("\nAccess granted\n")
             flag = 1
-
         else:
             print("\nWrong username or password")
-            ch = input("\nWant to try again? (y/n):").upper()
+            ch = input("\nWant to try again? (y/n) : ").upper()
             if ch == 'Y':
                 flag = 0
-
             else:
                 flag = 2
-
-
     if flag == 1:
         user_menu1()
     elif flag == 2:
@@ -534,8 +530,8 @@ def user_login():
 def user_signup():
     l = []
     n = 0
-    Uid = input("\nEnter your Email ID :")
-    passw = input("\nCreate a password :")
+    Uid = input("\nEnter your Email ID : ")
+    passw = input("\nCreate a password : ")
     sql1 = "select * from user_login;"
     cursor.execute(sql1)
     for i in cursor:
@@ -560,36 +556,36 @@ def user_menu1():
 2. My Account
 3. Exit
 """)
-    ch = int(input("Enter your choice:"))
-
+    ch = int(input("Enter your choice : "))
     if ch == 1: user_search()
-
     elif ch == 2: user_my_account()
-
     else: main_menu()
 
 def user_search():
     # for asking and searching the info of flights
     L = []
     global source, destination
-    locations = ["Mumbai","Delhi","Kolkata","Chennai","Panji","Ahmedabad",
-    "Pune","Kanpur","Guwahati","Bengaluru"]
+    locations = ["Mumbai", "Delhi", "Kolkata", "Chennai", "Panaji", "Ahmedabad",
+    "Pune", "Kanpur", "Guwahati", "Bengaluru"]
     print("\n========= Locations =========")
     for i in locations:
         print(i)
-    source = input("\nEnter source :").title()
-    destination = input("\nEnter destination :").title()
-    sql = "select * from flights where Source = %s and Destination = %s;"
-    data =(source,destination)
-    cursor.execute(sql,data)
-    for i in cursor:
-        L.append(i)
-    header = ["Flight no.","Flight Name","Source","Desination","Ticket Fare", "Time"]
-    print(tabulate(L,headers = header))
-    user_confirm()
+    source = input("\nEnter source : ").title()
+    destination = input("\nEnter destination : ").title()
+    if source and destination in locations:
+        sql = "select * from flights where Source = %s and Destination = %s;"
+        data = (source, destination)
+        cursor.execute(sql, data)
+        for i in cursor: L.append(i)
+        header = ["Flight no.", "Flight Name", "Source", "Desination", "Ticket Fare", "Time"]
+        print(tabulate(L, headers = header))
+        user_confirm()
+    else:
+        print("Invalid source or destination!")
+        user_search()
 
 def user_confirm():
-    ch = input("\nDo you want to continue with your booking? (y/n): ").upper()
+    ch = input("\nDo you want to continue with your booking? (y/n) : ").upper()
     if ch == 'Y':
         booking_id()
         flight_no()
@@ -604,7 +600,6 @@ def change_password():
     flag = 0
     while flag == 0:
         name = input("\nEnter username :")
-        old_passw = input("\nEnter your old password :")
         sql = 'select * from user_login'
         cursor.execute(sql)
         rec = cursor.fetchall()
