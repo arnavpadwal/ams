@@ -328,20 +328,9 @@ def flight_no():
         flight_no()
     company_name = flt_codes[flt_no[0:2]]
 
-def phone_num():
-    global phone
-    while True:
-        phone = input("\nEnter phone number: ")
-        if len(phone) != 10:
-            print("\nInvalid phone number, enter again.")
-            phone_num()
-            break
-        else: break
-
 def user_details():
     global ticket_qty, booking_date, flight_date, name
     name = input("\nEnter your name: ")
-    phone_num()
     ticket_qty = int(input("\nEnter the number of tickets to be booked [max 5] : "))
     booking_date = datetime.date.today()
     flight_date = booking_date + datetime.timedelta(days=3)
