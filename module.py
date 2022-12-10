@@ -45,7 +45,7 @@ def admin_menu():
         elif choice == '4': admin_choice_delete()
         elif choice == '5': admin_choice_search()
         elif choice == '6': main_menu()
-        else: break
+        else: exit()
 
 def admin_choice_add():
     print("""=============Admin Choice Add==============
@@ -181,7 +181,7 @@ def admin_choice_display():
             for i in cursor: print(i)
             admin_menu()
         elif choice == '5': admin_menu()
-        else: break
+        else: exit()
 
 def admin_choice_delete():
     print("""================Admin Menu Display=============
@@ -612,8 +612,6 @@ def change_password():
             if i == [name, passw]:
                 print("\nAccess granted")
                 flag = 1
-
-
             else:
                 print("\nWrong username or password")
                 ch = input("\nWant to try again? (Y/N):").upper
@@ -621,7 +619,6 @@ def change_password():
                     flag = 0
                 else:
                     flag = 2
-
     if flag == 1:
         new_passw = input("\nEnter new password :")
         sql = "Update user_login set password = %s where EmailID = %s"
@@ -629,6 +626,5 @@ def change_password():
         data = (L)
         cursor.execute(sql, data)
         mydb.commit()
-
     else:
         main_menu()
