@@ -62,11 +62,11 @@ def admin_choice_add():
                 flt_num = input("Enter flight number : ")
                 flt_name = input("Enter flight name : ")
                 data = ([flt_num, flt_name])
-                sql = "insert into flights (FlightNo, FlightName) values(%s,%s)"
+                sql = "insert into flights (FlightNo, Company) values(%s,%s)"
                 cursor.execute(sql, data)
                 mydb.commit()
                 repeat = input("Do you wish to add more flights<Y/N> : ").upper()
-                if repeat == 'N': admin_choice_add()
+                if repeat == 'N': admin_menu()
         elif choice == '2':
             while True:
                 empid = input("Enter employee id : ")
@@ -79,7 +79,7 @@ def admin_choice_add():
                 cursor.execute(sql, data)
                 mydb.commit()
                 repeat = input("Do you wish to add more crew members<Y/N> : ").upper()
-                if repeat == 'N': admin_choice_add()
+                if repeat == 'N': admin_menu()
         elif choice == '3':
             while True:
                 empid = input("Enter employee id : ")
@@ -91,7 +91,7 @@ def admin_choice_add():
                 cursor.execute(sql, data)
                 mydb.commit()
                 repeat = input("Do you wish to add more staff<Y/N> : ").upper()
-                if repeat == 'N': admin_choice_add()
+                if repeat == 'N': admin_menu()
         elif choice == '4':
             while True:
                 empid = input("Enter employee id : ")
@@ -103,7 +103,7 @@ def admin_choice_add():
                 cursor.execute(sql, data)
                 mydb.commit()
                 repeat = input("Do you wish to add more guards<Y/N> : ").upper()
-                if repeat == 'N': admin_choice_add()
+                if repeat == 'N': admin_menu()
         elif choice == '5':
             admin_menu()
         else: exit()
@@ -133,7 +133,7 @@ def admin_choice_update():
                     data = ([sal, emp_id])
                     cursor.execute(sql, data)
                     mydb.commit()
-                else: admin_choice_update()
+                else: admin_menu()
                 repeat = input("Do you wish to modify more records? : ").upper()
                 if repeat == 'N': break
         elif choice == '2':
@@ -151,8 +151,8 @@ def admin_choice_update():
                 data = ([sal, emp_id])
                 cursor.execute(sql, data)
                 mydb.commit()
-        elif choice == '4': admin_choice_update()
-        else: break
+        elif choice == '4': admin_menu()
+        else: exit()
 
 def admin_choice_display():
     print("""================Admin Menu Display=============
@@ -246,11 +246,11 @@ def admin_choice_search():
             header = ["Flt No", "Company", "Source", "Destination", "Fare", "Time"]
             if lst == []:
                 print("Flight ID not found!")
-                admin_choice_search()
+                admin_menu()
             else: 
                 print()
-                print(tabulate(lst, headers=header, tablefmt='fancy_grid', colalign='centre'))
-                admin_choice_search()
+                print(tabulate(lst, headers=header))
+                admin_menu()
         elif choice == '2':
             emp_id = input("Enter employee id to be searched : ").upper()
             sql = "select * from cabin_crew where Emp_ID = %s"
@@ -262,10 +262,10 @@ def admin_choice_search():
             header = ["Emp_ID", "Emp_Name", "Designation", "FlightNo", "Salary"]
             if lst == []:
                 print("Employee ID not found!")
-                admin_choice_search()
+                admin_menu()
             else:
                 print()
-                print(tabulate(lst, headers=header, tablefmt='fancy_grid', colalign='centre'))
+                print(tabulate(lst, headers=header))
                 admin_choice_search()
         elif choice == '3':
             emp_id = input("Enter employee id to be searched : ").upper()
@@ -278,11 +278,11 @@ def admin_choice_search():
             header = ["Emp_ID", "Emp_Name", "Salary"]
             if lst == []:
                 print("Employee ID not found!")
-                admin_choice_search()
+                admin_menu()
             else:
                 print()
-                print(tabulate(lst, headers=header, tablefmt='fancy_grid', colalign='centre'))
-                admin_choice_search()
+                print(tabulate(lst, headers=header))
+                admin_menu()
         elif choice == '4':
             emp_id = input("Enter employee id to be searched : ").upper()
             sql = "select * from security where Emp_ID = %s"
@@ -294,10 +294,10 @@ def admin_choice_search():
             header = ["Emp_ID", "Emp_Name", "Gate_No", "Salary"]
             if lst == []:
                 print("Employee ID not found!")
-                admin_choice_search()
+                admin_menu()
             else:
                 print()
-                print(tabulate(lst, headers=header, tablefmt='fancy_grid', colalign='centre'))
+                print(tabulate(lst, headers=header))
                 admin_choice_search()
         elif choice == '5': admin_menu()
         else: exit()
@@ -315,7 +315,7 @@ def booking_id():
         break
 
 def flight_no():
-    flt_codes = {"EA":"Emirate","LA":"Lufthansa","IA":"Indigo","SA":"SpiceJet"}
+    flt_codes = {"EA" : "Emirate", "LA" : "Lufthansa", "IA" : "Indigo", "SA" : "SpiceJet"}
     sql="select FlightNo from flights"
     cursor.execute(sql)
     global flt_no, company_name
@@ -351,8 +351,8 @@ def price_calc():
     price_dict = {"mumbai": 46, "delhi": 50, "kolkata": 60, "chennai": 70, "panji": 45,
     "ahmedabad": 38, "pune": 55, "kanpur": 65, "guwahati": 75, "bengaluru": 40}
     ticket_fare = price_dict[source.lower()] * price_dict[destination.lower()] * ticket_qty
-    fare_dict = {"EA":int(ticket_fare*1.15) , "LA":int(ticket_fare*1.09) , "IA":int(ticket_fare*1.05) ,
-    "SA":int(ticket_fare*1.07)}
+    fare_dict = {"EA" : int(ticket_fare*1.15), "LA" : int(ticket_fare*1.09), "IA" : int(ticket_fare*1.05),
+    "SA" : int(ticket_fare*1.07)}
     fare = fare_dict[flt_no[0:2]]
 
 def seat_no(n, fn):  # n = tickets_qty # flight no = fn
