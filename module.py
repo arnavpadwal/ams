@@ -405,10 +405,10 @@ def display_bookings():
         lst2 = []
         for i in cursor.fetchall():
             lst2.append(i)
-        print(tabulate(lst2, headers = header, tablefmt = 'fancy_grid', colalign = 'centre'))
+        print(tabulate(lst2, headers = header))
     else:
         print("\nUpcoming Flights\n")
-        print(tabulate(lst, headers = header, tablefmt = 'fancy_grid', colalign = 'centre'))
+        print(tabulate(lst, headers = header))
         print("\nBookings History\n")
         sql2 = "select * from bookings where Email_ID = '%s'and Flight_date < '%s' order by Flight_Date desc"%(email_id,datetime.date.today())
         cursor.execute(sql2)
@@ -418,7 +418,7 @@ def display_bookings():
         if lst2 == []:
             print("\nYou have no past bookings.")
         else:
-            print(tabulate(lst2, headers = header, tablefmt = 'fancy_grid', colalign = 'centre'))
+            print(tabulate(lst2, headers = header))
     user_menu1()
 
 def cancel_booking():
