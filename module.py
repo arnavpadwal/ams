@@ -8,7 +8,7 @@ def main_menu():
 1. Enter Admin Interface
 2. Enter User Interface
 3. Exit""")
-    choice = input("choose operation to be performed[1/2/3] : ")
+    choice = input("choose operation to be performed <1/2/3> : ")
     while choice != '0':
         if choice == '1':
             admin_access()
@@ -37,7 +37,7 @@ def admin_menu():
 5. Search Data
 6. Go back
 7. Exit""")
-    choice = input("Enter operation to be performed<1/2/3/4>: ")
+    choice = input("Enter operation to be performed<1/2/3/4/5/6/7> : ")
     while choice != '0':
         if choice == '1': admin_choice_add()
         elif choice == '2': admin_choice_update()
@@ -118,7 +118,7 @@ def admin_choice_update():
     choice = input("Enter operation to be performed : ")
     while choice != '0':
         if choice == '1':
-            choice_1 = input("Enter choice to modify cabin crew flight no., salary<1/2/3> : ")
+            choice_1 = input("Enter choice to modify cabin crew flight no., salary<1/2> : ")
             while choice_1 != '0':
                 emp_id = input("Enter employee id whose details need to be modified : ")
                 if choice_1 == '1':
@@ -135,7 +135,7 @@ def admin_choice_update():
                     mydb.commit()
                 else: admin_menu()
                 repeat = input("Do you wish to modify more records? : ").upper()
-                if repeat == 'N': break
+                if repeat == 'N': admin_menu()
         elif choice == '2':
             emp_id = input("Enter employee id whose details need to be modified : ")
             sal = input("Enter new employee salary : ")
@@ -397,7 +397,7 @@ def display_bookings():
     lst = []
     for i in cursor.fetchall():
         lst.append(i)
-    header = ["Book ID","Name","Email ID","Phone","Book Date","Flt Date","Source","Dest","Flt No","Seat No","Company","QTY","Fare"]
+    header = ["Book ID","Name","Email ID", "Book Date","Flt Date","Source","Dest","Flt No","Seat No","Company","QTY","Fare"]
     if lst == []:
         print("\nBookings History\n")
         sql2 = "select * from bookings where Email_ID = '%s' order by Flight_Date desc"%(email_id,)
@@ -478,13 +478,13 @@ def user_invoice():
     print("""
 ================ Invoice ================
 """)
-    print(tabulate([["Name", name], ["Phone",phone], ["Email ID", email_id], ["Booking ID",b_id], ["Source",source],
+    print(tabulate([["Name", name], ["Email ID", email_id], ["Booking ID",b_id], ["Source",source],
     ["Destination", destination], ["Flight No",flt_no], ["Ticket QTY", ticket_qty], ["Seat No", s_no],
     ["Fare", fare]]))
 
 def save_to_bookings():
-    query = "insert into bookings values('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (
-        b_id, name, email_id, phone, booking_date, flight_date, source, destination, flt_no, s_no, company_name,
+    query = "insert into bookings values('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (
+        b_id, name, email_id, booking_date, flight_date, source, destination, flt_no, s_no, company_name,
         ticket_qty, fare)
     cursor.execute(query)
     mydb.commit()
