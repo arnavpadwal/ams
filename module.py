@@ -328,9 +328,20 @@ def flight_no():
         flight_no()
     company_name = flt_codes[flt_no[0:2]]
 
+def phone_num():
+    global phone
+    while True:
+        phone = input("\nEnter phone number: ")
+        if len(phone) != 10:
+            print("\nInvalid phone number, enter again.")
+            phone_num()
+            break
+        else: break
+
 def user_details():
     global ticket_qty, booking_date, flight_date, name
     name = input("\nEnter your name: ")
+    phone_num()
     ticket_qty = int(input("\nEnter the number of tickets to be booked [max 5] : "))
     booking_date = datetime.date.today()
     flight_date = booking_date + datetime.timedelta(days=3)
@@ -386,7 +397,7 @@ def display_bookings():
     lst = []
     for i in cursor.fetchall():
         lst.append(i)
-    header = ["Book ID","Name","Email ID", "Book Date","Flt Date","Source","Dest","Flt No","Seat No","Company","QTY","Fare"]
+    header = ["Book ID","Name","Email","Phone","Book Date","Flt Date","Source","Dest","Flt No","Seat No","Company","QTY","Fare"]
     if lst == []:
         print("\nBookings History\n")
         sql2 = "select * from bookings where Email_ID = '%s' order by Flight_Date desc"%(email_id,)
@@ -418,12 +429,12 @@ You will need your booking id to cancel a booking.
 """)
     ch = input("Do you still wanna cancel booking? <yes/no> : ").lower()
     if ch == 'yes':
-        sql = "select * from bookings where Bookieng_ID = '%s'"%(id,)
+        id = int(input("\nEnter booking id : "))
+        sql = "select * from bookings where Booking_ID = '%s' and Email_ID = '%s'"%(id, email_id)
         cursor.execute(sql)
         r = cursor.fetchall()
         if r != []:
-            id = int(input("\nEnter booking id : "))
-            sql = "delete from bookings where Booking_ID = '%s'"%(id,)
+            sql = "delete from bookings where Booking_ID = '%s' and Email_ID = '%s'"%(id, email_id)
             cursor.execute(sql)
             mydb.commit()
             print("\nBooking Cancelled Successfully!")
@@ -472,8 +483,8 @@ def user_invoice():
     ["Fare", fare]]))
 
 def save_to_bookings():
-    query = "insert into bookings values('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (
-        b_id, name, email_id, booking_date, flight_date, source, destination, flt_no, s_no, company_name,
+    query = "insert into bookings values('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (
+        b_id, name, email_id, phone, booking_date, flight_date, source, destination, flt_no, s_no, company_name,
         ticket_qty, fare)
     cursor.execute(query)
     mydb.commit()
@@ -583,6 +594,7 @@ def user_confirm():
         seat_no(ticket_qty, flt_no)
         user_invoice()
         save_to_bookings()
+        user_my_account()
     else: user_menu1()
 
 def change_password():
