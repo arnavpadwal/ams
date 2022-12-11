@@ -418,12 +418,12 @@ You will need your booking id to cancel a booking.
 """)
     ch = input("Do you still wanna cancel booking? <yes/no> : ").lower()
     if ch == 'yes':
-        id = int(input("Enter booking id : "))
-        sql = "select * from bookings where Booking_ID = '%s' and Email_ID = '%s'"%(id,email_id)
+        sql = "select * from bookings where Bookieng_ID = '%s'"%(id,)
         cursor.execute(sql)
         r = cursor.fetchall()
         if r != []:
-            sql = "delete from bookings where Booking_ID = '%s' and Email_ID = '%s'"%(id,email_id)
+            id = int(input("Enter booking id : "))
+            sql = "delete from bookings where Booking_ID = '%s'"%(id,)
             cursor.execute(sql)
             mydb.commit()
             print("Booking Cancelled Successfully!")
