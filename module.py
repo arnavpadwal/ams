@@ -319,19 +319,19 @@ def flight_no():
     sql="select FlightNo from flights"
     cursor.execute(sql)
     global flt_no, company_name
-    flt_no = input("Enter flight number of your choice: ").upper()
+    flt_no = input("\nEnter flight number of your choice: ").upper()
     flt_no_list = []
     for i in cursor:
         flt_no_list.append(i[0])
     if flt_no not in flt_no_list:
-        print("Invalid flight number, enter again.")
+        print("\nInvalid flight number, enter again.")
         flight_no()
     company_name = flt_codes[flt_no[0:2]]
 
 def user_details():
     global ticket_qty, booking_date, flight_date, name
-    name = input("Enter your name: ")
-    ticket_qty = int(input("Enter the number of tickets to be booked [max 5] : "))
+    name = input("\nEnter your name: ")
+    ticket_qty = int(input("\nEnter the number of tickets to be booked [max 5] : "))
     booking_date = datetime.date.today()
     flight_date = booking_date + datetime.timedelta(days=3)
 
@@ -386,9 +386,9 @@ def display_bookings():
     lst = []
     for i in cursor.fetchall():
         lst.append(i)
-    header = ["Book ID", "Name", "Email ID", "Book Date", "Flt Date", "Source", "Dest", "Flt No", "Seat No", "Company", "QTY", "Fare"]
+    header = ["Book ID","Name","Email ID", "Book Date","Flt Date","Source","Dest","Flt No","Seat No","Company","QTY","Fare"]
     if lst == []:
-        print("Bookings History")
+        print("\nBookings History\n")
         sql2 = "select * from bookings where Email_ID = '%s' order by Flight_Date desc"%(email_id,)
         cursor.execute(sql2)
         lst2 = []
@@ -396,16 +396,16 @@ def display_bookings():
             lst2.append(i)
         print(tabulate(lst2, headers = header))
     else:
-        print("Upcoming Flights")
+        print("\nUpcoming Flights\n")
         print(tabulate(lst, headers = header))
-        print("Bookings History")
+        print("\nBookings History\n")
         sql2 = "select * from bookings where Email_ID = '%s'and Flight_date < '%s' order by Flight_Date desc"%(email_id,datetime.date.today())
         cursor.execute(sql2)
         lst2 = []
         for i in cursor.fetchall():
                 lst2.append(i)
         if lst2 == []:
-            print("You have no past bookings.")
+            print("\nYou have no past bookings.")
         else:
             print(tabulate(lst2, headers = header))
     user_menu1()
@@ -418,15 +418,15 @@ You will need your booking id to cancel a booking.
 """)
     ch = input("Do you still wanna cancel booking? <yes/no> : ").lower()
     if ch == 'yes':
-        id = int(input("Enter booking id : "))
-        sql = "select * from bookings where Booking_ID = '%s' and Email_ID = '%s'"%(id,email_id)
+        sql = "select * from bookings where Bookieng_ID = '%s'"%(id,)
         cursor.execute(sql)
         r = cursor.fetchall()
         if r != []:
-            sql = "delete from bookings where Booking_ID = '%s' and Email_ID = '%s'"%(id,email_id)
+            id = int(input("\nEnter booking id : "))
+            sql = "delete from bookings where Booking_ID = '%s'"%(id,)
             cursor.execute(sql)
             mydb.commit()
-            print("Booking Cancelled Successfully!")
+            print("\nBooking Cancelled Successfully!")
     else: my_bookings()
 
 def my_bookings():
@@ -495,18 +495,18 @@ def user_login():
     L = []
     while flag == 0:
         global email_id, passw
-        email_id = input("Enter your email id : ")
-        passw = input("Enter your password : ")
+        email_id = input("\nEnter your email id : ")
+        passw = input("\nEnter your password : ")
         sql = 'select * from user_login;'
         cursor.execute(sql)
         for i in cursor:
             L.append(i)
-        if (email_id, passw) in L:
-            print("Access granted")
+        if (email_id,passw) in L:
+            print("\nAccess granted\n")
             flag = 1
         else:
-            print("Wrong username or password")
-            ch = input("Want to try again? (y/n) : ").upper()
+            print("\nWrong username or password")
+            ch = input("\nWant to try again? (y/n) : ").upper()
             if ch == 'Y':
                 flag = 0
             else:
@@ -519,8 +519,8 @@ def user_login():
 def user_signup():
     l = []
     n = 0
-    Uid = input("Enter your Email ID : ")
-    passw = input("Create a password : ")
+    Uid = input("\nEnter your Email ID : ")
+    passw = input("\nCreate a password : ")
     sql1 = "select * from user_login;"
     cursor.execute(sql1)
     for i in cursor:
@@ -532,10 +532,10 @@ def user_signup():
         sql2 = "insert into user_login values(%s,%s);"
         cursor.execute(sql2, data)
         mydb.commit()
-        print("Account successfully created")
+        print("\nAccount successfully created")
         user_access()
     else:
-        print("Account already exists")
+        print("\nAccount already exists")
         user_access()
 
 def user_menu1():
@@ -556,11 +556,11 @@ def user_search():
     global source, destination
     locations = ["Mumbai", "Delhi", "Kolkata", "Chennai", "Panaji", "Ahmedabad",
     "Pune", "Kanpur", "Guwahati", "Bengaluru"]
-    print("========= Locations =========")
+    print("\n========= Locations =========")
     for i in locations:
         print(i)
-    source = input("Enter source : ").title()
-    destination = input("Enter destination : ").title()
+    source = input("\nEnter source : ").title()
+    destination = input("\nEnter destination : ").title()
     if source and destination in locations:
         sql = "select * from flights where Source = %s and Destination = %s;"
         data = (source, destination)
@@ -574,7 +574,7 @@ def user_search():
         user_search()
 
 def user_confirm():
-    ch = input("Do you want to continue with your booking? (y/n) : ").upper()
+    ch = input("\nDo you want to continue with your booking? (y/n) : ").upper()
     if ch == 'Y':
         booking_id()
         flight_no()
@@ -588,23 +588,23 @@ def user_confirm():
 def change_password():
     flag = 0
     while flag == 0:
-        name = input("Enter username :")
+        name = input("\nEnter username :")
         sql = 'select * from user_login'
         cursor.execute(sql)
         rec = cursor.fetchall()
         for i in rec:
             if i == [name, passw]:
-                print("Access granted")
+                print("\nAccess granted")
                 flag = 1
             else:
-                print("Wrong username or password")
-                ch = input("Want to try again? (Y/N):").upper
+                print("\nWrong username or password")
+                ch = input("\nWant to try again? (Y/N):").upper
                 if ch == 'Y':
                     flag = 0
                 else:
                     flag = 2
     if flag == 1:
-        new_passw = input("Enter new password :")
+        new_passw = input("\nEnter new password :")
         sql = "Update user_login set password = %s where EmailID = %s"
         L = [new_passw, name]
         data = (L)
