@@ -397,7 +397,7 @@ def display_bookings():
     lst = []
     for i in cursor.fetchall():
         lst.append(i)
-    header = ["Book ID","Name","Email ID", "Book Date","Flt Date","Source","Dest","Flt No","Seat No","Company","QTY","Fare"]
+    header = ["Book ID","Name","Email","Phone","Book Date","Flt Date","Source","Dest","Flt No","Seat No","Company","QTY","Fare"]
     if lst == []:
         print("\nBookings History\n")
         sql2 = "select * from bookings where Email_ID = '%s' order by Flight_Date desc"%(email_id,)
@@ -594,6 +594,7 @@ def user_confirm():
         seat_no(ticket_qty, flt_no)
         user_invoice()
         save_to_bookings()
+        user_my_account()
     else: user_menu1()
 
 def change_password():
