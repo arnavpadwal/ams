@@ -75,7 +75,7 @@ taken_empid = []
 flt_codes = flt_companies.keys()
 
 i = 1
-while i <= 500:
+while i <= 10:
 
     s = str(random.choice(company))
     source = str(random.choice(sd))

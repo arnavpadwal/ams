@@ -15,8 +15,8 @@ taken_empid = []
 
 flt_codes = flt_companies.keys()
 
-i=1
-while i<=500:
+i = 1
+while i <= 10:
 
     salary = random.randint(30,100)*1000
     gate_no = random.choice(letters)+str(random.randint(1,3))
